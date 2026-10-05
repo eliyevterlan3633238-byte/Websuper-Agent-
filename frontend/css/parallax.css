@@ -1,0 +1,245 @@
+/* ==========================================================================
+   WebSuper Agency - Ultra-Smooth High-Performance Parallax Engine
+   ========================================================================== */
+
+/* === 1. Background Parallax Layer Styling === */
+.parallax-bg {
+    position: relative;
+    overflow: hidden !important;
+    touch-action: pan-y !important;
+}
+
+.parallax-bg-layer-inner {
+    position: absolute;
+    top: -30%;
+    left: 0;
+    width: 100%;
+    height: 160%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Ensure content sits cleanly above parallax background layer, except absolute overlays */
+.parallax-bg > *:not(.parallax-bg-layer-inner):not(.header-overlay):not(.cta-overlay):not(.sub-hero-overlay) {
+    position: relative;
+    z-index: 2;
+}
+
+/* Page Header and Full Overlay - Full Width and Centered Content */
+.header-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75)) !important;
+    z-index: 1 !important;
+    pointer-events: none;
+}
+
+.page-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    position: relative !important;
+    width: 100% !important;
+    touch-action: pan-y !important;
+}
+
+.page-header .header-content {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* === 2. Sub-Hero Slider Parallax (Home page cards) === */
+.parallax-wrapper {
+    position: relative;
+    overflow: hidden;
+    background: transparent !important;
+    touch-action: pan-y !important;
+}
+
+.parallax-bg-layer {
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    right: -10%;
+    bottom: -30%;
+    width: 120%;
+    height: 160%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    will-change: transform;
+    pointer-events: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.sub-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.5) 55%, rgba(0, 0, 0, 0.25) 100%) !important;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.parallax-wrapper > *:not(.parallax-bg-layer):not(.sub-hero-overlay) {
+    position: relative;
+    z-index: 2;
+}
+
+/* === 3. Floating Parallax Wrappers (Cards & Elements) === */
+.parallax-float {
+    display: block;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    touch-action: pan-y !important;
+}
+
+/* In grid systems, ensure wrapper takes full height */
+.portfolio-grid > .parallax-float,
+.blog-grid > .parallax-float,
+.contact-top-cards > .parallax-float,
+.values-grid > .parallax-float,
+.pricing-grid > .parallax-float {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-grid > .parallax-float {
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-grid > .parallax-float > *,
+.blog-grid > .parallax-float > *,
+.contact-top-cards > .parallax-float > *,
+.values-grid > .parallax-float > *,
+.pricing-grid > .parallax-float > *,
+.team-grid > .parallax-float > * {
+    flex: 1;
+    width: 100%;
+}
+
+/* === 4. Interactive 3D Card Tilt Effect === */
+.tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    touch-action: pan-y !important;
+}
+
+.tilt-card > * {
+    transform: translateZ(20px);
+}
+
+/* === 5. Ambient Glowing Parallax Orbs === */
+.ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+    will-change: transform;
+    mix-blend-mode: screen;
+}
+
+.orb-primary {
+    background: radial-gradient(circle, var(--primary-start, #33b36b) 0%, transparent 70%);
+}
+
+.orb-secondary {
+    background: radial-gradient(circle, var(--primary-end, #EFF25A) 0%, transparent 70%);
+}
+
+/* === 6. Reveal-on-scroll Fallback === */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === 7. Responsive & Accessibility === */
+@media (max-width: 768px) {
+    .parallax-bg-layer-inner {
+        top: -15%;
+        height: 130%;
+    }
+    
+    .parallax-float {
+        transform: none !important;
+        will-change: auto !important;
+    }
+    
+    .tilt-card {
+        transform: none !important;
+        transform-style: flat !important;
+        perspective: none !important;
+        will-change: auto !important;
+    }
+    
+    .ambient-orb {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .parallax-bg-layer-inner,
+    .parallax-bg-layer,
+    .parallax-float,
+    .tilt-card,
+    .ambient-orb {
+        transform: none !important;
+        will-change: auto !important;
+    }
+    
+    .reveal-on-scroll {
+        transition: none !important;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Explicit exemption: .final-cta remains fully static without any parallax */
+.final-cta {
+    transform: none !important;
+    background-attachment: scroll !important;
+}
+
+.final-cta .parallax-bg-layer-inner {
+    display: none !important;
+}

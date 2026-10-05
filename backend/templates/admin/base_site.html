@@ -1,0 +1,248 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block dark-mode-vars %}
+  <link rel="stylesheet" href="{% static "admin/css/dark_mode.css" %}">
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/admin_custom.css' %}">
+<script>
+    // Permanently activate dark mode on the root element
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.dataset.theme = 'dark';
+    try {
+        localStorage.setItem('theme', 'dark');
+    } catch(e) {}
+</script>
+{% endblock %}
+
+{% block branding %}
+<div id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></div>
+{% endblock %}
+
+{% block welcome-msg %}
+<span class="welcome-msg-wrapper">
+    {% translate 'Welcome,' %}
+    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+</span>
+{% endblock %}
+
+{% block userlinks %}
+    {% if site_url %}
+        <a href="{{ site_url }}" class="user-nav-link">{% translate 'View site' %}</a>
+        <span class="user-sep">/</span>
+    {% endif %}
+
+    {% if user.is_active and user.is_staff %}
+        <a href="{% url 'chat:chat_list' %}" class="user-nav-link" id="adminMessagesLink">
+            {% translate 'Messages' %}
+            <span id="globalUnreadCount" style="background: var(--primary-end); color: black; padding: 2px 6px; border-radius: 10px; font-weight: bold; font-size: 11px; margin-left: 5px; {% if not chat_unread_count %}display: none;{% endif %}">{{ chat_unread_count }}</span>
+        </a>
+        <span class="user-sep">/</span>
+        
+        {% url 'django-admindocs-docroot' as docsroot %}
+        {% if docsroot %}
+            <a href="{{ docsroot }}" class="user-nav-link">{% translate 'Documentation' %}</a>
+            <span class="user-sep">/</span>
+        {% endif %}
+    {% endif %}
+
+    {% if user.has_usable_password %}
+        <a href="{% url 'admin:password_change' %}" class="user-nav-link">{% translate 'Change password' %}</a>
+        <span class="user-sep">/</span>
+    {% endif %}
+
+    <form id="logout-form" method="post" action="{% url 'admin:logout' %}" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">{% translate 'Log out' %}</button>
+    </form>
+
+    <span class="user-sep">|</span>
+
+    <!-- Language Selector Dropdown -->
+    <form action="{% url 'set_language' %}" method="post" id="admin-lang-form" class="admin-lang-form">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        <div class="admin-lang-wrapper" title="{% translate 'Select language' %}">
+            <svg class="admin-lang-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <select name="language" id="admin-lang-select" class="admin-lang-select" onchange="this.form.submit()" aria-label="{% translate 'Language' %}">
+                {% get_current_language as CURRENT_LANG %}
+                {% get_available_languages as AVAILABLE_LANGS %}
+                {% for code, name in AVAILABLE_LANGS %}
+                    <option value="{{ code }}" {% if code == CURRENT_LANG %}selected{% endif %}>
+                        {{ code|upper }}
+                    </option>
+                {% endfor %}
+            </select>
+            <svg class="admin-lang-arrow" viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+    </form>
+
+    {% if user.is_active and user.is_staff %}
+    <style>
+        .admin-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+            color: white;
+            padding: 25px 35px;
+            border-radius: 12px;
+            border-left: 6px solid #81c784;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateX(100px);
+            font-size: 16px;
+        }
+        .admin-toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .admin-toast-plus {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff4757;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s, top 0.5s;
+        }
+        .admin-toast-plus.show {
+            opacity: 1;
+            top: 20px;
+        }
+    </style>
+    <div id="adminToast" class="admin-toast"></div>
+    <div id="adminToastPlus" class="admin-toast-plus">+1</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+            let notifySocket = new WebSocket(ws_scheme + '://' + window.location.host + '/ws/admin-notify/');
+
+            let unreadCountSpan = document.getElementById('globalUnreadCount');
+            let currentUnread = parseInt("{{ chat_unread_count|default:'0' }}") || 0;
+            
+            function updateUnreadCountDisplay(count) {
+                if (unreadCountSpan) {
+                    unreadCountSpan.textContent = count;
+                    unreadCountSpan.style.display = count > 0 ? 'inline' : 'none';
+                }
+                
+                let originalTitle = document.title.replace(/^(\(\d+\)\s*|🔴\s*)+/, '');
+                if (count > 0) {
+                    document.title = `🔴 (${count}) ${originalTitle}`;
+                } else {
+                    document.title = originalTitle;
+                }
+                
+                // Sidebar-a "CHAT" yazısının yanına qırmızı badge əlavə et
+                let chatMenuTitle = document.querySelector('.app-chat caption a, .app-chat a.section');
+                if (!chatMenuTitle) {
+                    // Əgər fərqli admin mövzusu istifadə edilirsə (sidebar axtarışı)
+                    let links = Array.from(document.querySelectorAll('.app-chat a, a.section'));
+                    chatMenuTitle = links.find(el => el.textContent.trim().toUpperCase() === 'CHAT');
+                }
+                if (chatMenuTitle) {
+                    let badge = chatMenuTitle.querySelector('.sidebar-chat-badge');
+                    if (!badge) {
+                        badge = document.createElement('span');
+                        badge.className = 'sidebar-chat-badge';
+                        badge.style.cssText = 'background: #ff4757; color: white; padding: 3px 10px; border-radius: 20px; font-size: 14px; margin-left: 10px; vertical-align: middle; display: inline-block; box-shadow: 0 0 10px rgba(255, 71, 87, 0.5); font-weight: bold;';
+                        chatMenuTitle.appendChild(badge);
+                    }
+                    badge.textContent = '+' + count;
+                    badge.style.display = count > 0 ? 'inline-block' : 'none';
+                }
+            }
+            
+            // Initialize title
+            updateUnreadCountDisplay(currentUnread);
+
+            notifySocket.onmessage = function(e) {
+                let data = JSON.parse(e.data);
+                
+                if (data.action === 'notify') {
+                    // Siyahını canlı yeniləmək üçün xüsusi event göndər
+                    document.dispatchEvent(new CustomEvent('newChatMessage', { detail: data }));
+                    
+                    // Check if chat is open right now
+                    let isChatOpen = window.location.pathname.includes('/admin/chat/' + data.chat_id);
+                    
+                    if (!isChatOpen) {
+                        currentUnread += 1;
+                        updateUnreadCountDisplay(currentUnread);
+                        
+                        // Show toast
+                        let toast = document.getElementById('adminToast');
+                        toast.innerHTML = `<div style="font-size: 32px; color: #fff;"><i class="fas fa-bell"></i></div>
+                                           <div>
+                                               <strong style="display: block; font-size: 18px; margin-bottom: 5px;">Yeni mesaj var!</strong>
+                                               <span style="color: #e8f5e9; font-size: 15px;">${data.customer_name}: ${data.message.length > 50 ? data.message.substring(0, 50) + '...' : data.message}</span>
+                                           </div>`;
+                        toast.onclick = function() {
+                            window.location.href = "{% url 'chat:chat_detail' '00000000-0000-0000-0000-000000000000' %}".replace('00000000-0000-0000-0000-000000000000', data.chat_id);
+                        };
+                        toast.classList.add('show');
+                        
+                        // Show +1
+                        let plus = document.getElementById('adminToastPlus');
+                        plus.classList.add('show');
+                        
+                        // Beep
+                        try {
+                            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                            let oscillator = audioCtx.createOscillator();
+                            let gainNode = audioCtx.createGain();
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioCtx.destination);
+                            oscillator.type = 'sine';
+                            oscillator.frequency.value = 523.25; // C5
+                            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                            oscillator.start();
+                            oscillator.stop(audioCtx.currentTime + 0.1);
+                        } catch (e) {}
+
+                        setTimeout(() => {
+                            toast.classList.remove('show');
+                            plus.classList.remove('show');
+                        }, 6000);
+                    }
+                } else if (data.action === 'read_update') {
+                    // Decrement logic is handled when page reloads, 
+                    // or we could ask server for exact count, but page reload is fine
+                }
+            };
+
+            notifySocket.onclose = function(e) {
+                console.error('Admin notify socket closed unexpectedly');
+                setTimeout(function() {
+                    // reconnect logic could go here
+                }, 5000);
+            };
+        });
+    </script>
+    {% endif %}
+{% endblock %}

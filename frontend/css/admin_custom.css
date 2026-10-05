@@ -1,0 +1,606 @@
+/* ==========================================================================
+   WEBSUPER ADMIN: COMPLETE PERMANENT DARK THEME & HEADER STYLING
+   ========================================================================== */
+
+/* 1. ROOT & GLOBAL DARK VARIABLES */
+:root,
+html,
+html[data-theme="dark"],
+html[data-theme="auto"] {
+    --primary: #264b5d !important;
+    --primary-fg: #f7f7f7 !important;
+    --body-fg: #e0e0e0 !important;
+    --body-bg: #121212 !important;
+    --body-quiet-color: #a0a0a0 !important;
+    --body-medium-color: #c0c0c0 !important;
+    --body-loud-color: #ffffff !important;
+    --header-bg: #1a3442 !important;
+    --header-color: #ffc !important;
+    --header-link-color: #ffffff !important;
+    --breadcrumbs-bg: #142833 !important;
+    --breadcrumbs-fg: #90a4ae !important;
+    --breadcrumbs-link-fg: #81d4fa !important;
+    --link-fg: #81d4fa !important;
+    --link-hover-color: #4ac1f7 !important;
+    --link-selected-fg: #6f94c6 !important;
+    --hairline-color: #262626 !important;
+    --border-color: #333333 !important;
+    --darkened-bg: #181818 !important;
+    --selected-bg: #1f2d35 !important;
+    --selected-row: #00363a !important;
+    --button-fg: #ffffff !important;
+    --button-bg: #264b5d !important;
+    --button-hover-bg: #326077 !important;
+    --default-button-bg: #264b5d !important;
+    --default-button-hover-bg: #326077 !important;
+    --close-button-bg: #333333 !important;
+    --close-button-hover-bg: #555555 !important;
+    --delete-button-bg: #ba2121 !important;
+    --delete-button-hover-bg: #a41515 !important;
+    --object-tools-fg: #ffffff !important;
+    --object-tools-bg: #264b5d !important;
+    --object-tools-hover-bg: #326077 !important;
+    color-scheme: dark !important;
+}
+
+/* 2. MAIN LAYOUT & BACKGROUNDS (FORCE DARK) */
+html,
+body,
+#container,
+#main,
+.main,
+#content,
+#content-main,
+.content {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+/* 3. HEADER (PETROL DARK THEME) */
+#header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 14px !important;
+    padding: 10px 24px !important;
+    background: var(--header-bg, #1a3442) !important;
+    border-bottom: 1px solid #234254 !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+}
+
+#header #branding {
+    float: none !important;
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#header #branding h1 {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+#header #branding h1 a:link,
+#header #branding h1 a:visited {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+/* 4. USER TOOLS (HEADER RIGHT SECTION) */
+#header #user-tools {
+    position: static !important;
+    float: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 0.8rem !important;
+    line-height: 1 !important;
+    color: #ffffff !important;
+}
+
+#user-tools .welcome-msg-wrapper {
+    display: inline-flex !important;
+    align-items: center !important;
+    font-size: 0.775rem !important;
+    letter-spacing: 0.4px !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    margin-right: 4px !important;
+    white-space: nowrap !important;
+}
+
+#user-tools .welcome-msg-wrapper strong {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    margin-left: 3px !important;
+}
+
+#user-tools .user-sep {
+    color: rgba(255, 255, 255, 0.35) !important;
+    font-weight: 300 !important;
+    user-select: none !important;
+    font-size: 0.85rem !important;
+}
+
+#user-tools a.user-nav-link {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 0.775rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 5px 8px !important;
+    border-radius: 5px !important;
+    background: transparent !important;
+    transition: background 0.2s ease !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+#user-tools a.user-nav-link:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+#user-tools .logout-form {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#user-tools .logout-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-family: inherit !important;
+    font-size: 0.775rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 5px 8px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 1 !important;
+}
+
+#user-tools .logout-btn:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* 5. LANGUAGE SELECTOR DROPDOWN */
+.admin-lang-form {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 0 0 4px !important;
+    padding: 0 !important;
+}
+
+.admin-lang-wrapper {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 6px !important;
+    padding: 3px 6px 3px 26px !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    height: 28px !important;
+    box-sizing: border-box !important;
+}
+
+.admin-lang-wrapper:hover,
+.admin-lang-wrapper:focus-within {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+}
+
+.admin-lang-icon {
+    position: absolute !important;
+    left: 7px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    pointer-events: none !important;
+}
+
+.admin-lang-select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-family: inherit !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.6px !important;
+    padding: 0 14px 0 2px !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    outline: none !important;
+    line-height: 1 !important;
+}
+
+.admin-lang-select option {
+    background-color: #1a3442 !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    padding: 6px 10px !important;
+}
+
+.admin-lang-arrow {
+    position: absolute !important;
+    right: 6px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    pointer-events: none !important;
+}
+
+/* 6. BREADCRUMBS */
+nav[aria-label="Breadcrumbs"],
+.breadcrumbs {
+    background: var(--breadcrumbs-bg, #142833) !important;
+    color: var(--breadcrumbs-fg, #90a4ae) !important;
+    border-bottom: 1px solid #1f3b49 !important;
+}
+
+.breadcrumbs a {
+    color: var(--breadcrumbs-link-fg, #81d4fa) !important;
+}
+
+.breadcrumbs a:hover {
+    color: #4ac1f7 !important;
+}
+
+/* 7. LEFT NAVIGATION SIDEBAR (#nav-sidebar) */
+#nav-sidebar {
+    background: #161a1d !important;
+    border-right: 1px solid #262c31 !important;
+}
+
+#nav-sidebar .module th,
+#nav-sidebar .module caption {
+    background: #1f2b33 !important;
+    color: #ffffff !important;
+}
+
+#nav-sidebar .module table {
+    background: transparent !important;
+}
+
+#nav-sidebar tr,
+#nav-sidebar td {
+    background: transparent !important;
+    border-bottom: 1px solid #22272b !important;
+}
+
+#nav-sidebar tr:hover,
+#nav-sidebar td:hover {
+    background: #232d35 !important;
+}
+
+#nav-sidebar a {
+    color: #d0d0d0 !important;
+}
+
+#nav-sidebar a:hover {
+    color: #81d4fa !important;
+}
+
+#nav-sidebar .current-model {
+    background: #1f3847 !important;
+}
+
+#nav-sidebar .current-model a {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+/* 8. CHANGELIST & RESULTS TABLE (THE WHITE AREA IN SCREENSHOT) */
+#changelist {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+#changelist-form .results,
+.results table {
+    background: #181c1f !important;
+    border: 1px solid #2c343b !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+}
+
+#changelist table thead th {
+    background: #1e2830 !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #2c3b46 !important;
+    padding: 10px !important;
+}
+
+#changelist table thead th a {
+    color: #ffffff !important;
+}
+
+#changelist table tbody tr {
+    background-color: #181c1f !important;
+    border-bottom: 1px solid #22272b !important;
+}
+
+#changelist table tbody tr.row1 {
+    background-color: #181c1f !important;
+}
+
+#changelist table tbody tr.row2 {
+    background-color: #15181a !important;
+}
+
+#changelist table tbody tr:hover,
+#changelist table tbody tr:hover td {
+    background-color: #212c35 !important;
+}
+
+#changelist table tbody td {
+    color: #d8d8d8 !important;
+    border-top: 1px solid #22272b !important;
+}
+
+#changelist table tbody td a {
+    color: #81d4fa !important;
+}
+
+#changelist table tbody td a:hover {
+    color: #4ac1f7 !important;
+}
+
+/* 9. SEARCH TOOLBAR & INPUTS */
+#toolbar,
+#changelist-search {
+    background: #181c1f !important;
+    border: 1px solid #2c343b !important;
+    border-radius: 6px !important;
+    padding: 10px 14px !important;
+    margin-bottom: 16px !important;
+    color: #e0e0e0 !important;
+}
+
+#toolbar form input[type="text"],
+#searchbar,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="search"],
+textarea,
+select {
+    background-color: #1c2227 !important;
+    color: #ffffff !important;
+    border: 1px solid #36424b !important;
+    border-radius: 4px !important;
+    padding: 6px 10px !important;
+    outline: none !important;
+}
+
+#toolbar form input[type="text"]:focus,
+#searchbar:focus,
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #81d4fa !important;
+    box-shadow: 0 0 0 2px rgba(129, 212, 250, 0.25) !important;
+}
+
+/* Submit and Action Buttons */
+input[type="submit"],
+input[type="button"],
+button[type="submit"],
+.button,
+.submit-row input {
+    background-color: #264b5d !important;
+    color: #ffffff !important;
+    border: 1px solid #355869 !important;
+    border-radius: 5px !important;
+    padding: 6px 14px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover,
+.button:hover,
+.submit-row input:hover {
+    background-color: #326077 !important;
+}
+
+.submit-row {
+    background: #181c1f !important;
+    border: 1px solid #2c343b !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+}
+
+/* 10. FILTER SIDEBAR (ON THE RIGHT OF SCREENSHOT) */
+#changelist-filter {
+    background: #181c1f !important;
+    border-left: 1px solid #2c343b !important;
+    color: #d0d0d0 !important;
+}
+
+#changelist-filter h2 {
+    background: #1f2b33 !important;
+    color: #ffffff !important;
+    padding: 10px 14px !important;
+    border-bottom: 1px solid #2c3b46 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+#changelist-filter h3 {
+    color: #81d4fa !important;
+    font-size: 0.8rem !important;
+    margin-top: 14px !important;
+    font-weight: 600 !important;
+}
+
+#changelist-filter ul {
+    padding-left: 0 !important;
+}
+
+#changelist-filter li {
+    margin-bottom: 4px !important;
+}
+
+#changelist-filter a {
+    color: #b0bec5 !important;
+    text-decoration: none !important;
+    padding: 2px 4px !important;
+    display: inline-block !important;
+    border-radius: 3px !important;
+}
+
+#changelist-filter a:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+#changelist-filter li.selected a {
+    color: #81d4fa !important;
+    font-weight: 700 !important;
+    background: rgba(129, 212, 250, 0.15) !important;
+}
+
+/* 11. OBJECT TOOLS (ADD BUTTONS TOP RIGHT) */
+.object-tools li a,
+.object-tools a {
+    background-color: #264b5d !important;
+    color: #ffffff !important;
+    border-radius: 5px !important;
+    padding: 7px 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.4px !important;
+    text-transform: uppercase !important;
+    font-size: 0.75rem !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.object-tools li a:hover,
+.object-tools a:hover {
+    background-color: #326077 !important;
+}
+
+/* 12. FORMS, FIELDSETS & MODULES */
+.module,
+fieldset.module {
+    background: #181c1f !important;
+    border: 1px solid #2c343b !important;
+    border-radius: 6px !important;
+    margin-bottom: 20px !important;
+}
+
+.module h2,
+fieldset h2 {
+    background: #1f2b33 !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #2c3b46 !important;
+    padding: 10px 14px !important;
+}
+
+.module caption {
+    background: #1f2b33 !important;
+    color: #ffffff !important;
+}
+
+.form-row {
+    border-bottom: 1px solid #22272b !important;
+    padding: 12px 14px !important;
+}
+
+.form-row label {
+    color: #c0c0c0 !important;
+}
+
+.help,
+p.help {
+    color: #8898aa !important;
+}
+
+/* 13. PAGINATOR */
+.paginator {
+    background: #181c1f !important;
+    color: #b0bec5 !important;
+    border-top: 1px solid #2c343b !important;
+    border-radius: 0 0 6px 6px !important;
+    padding: 10px 14px !important;
+}
+
+.paginator a:link,
+.paginator a:visited {
+    background: #264b5d !important;
+    color: #ffffff !important;
+    border-radius: 4px !important;
+    padding: 3px 8px !important;
+}
+
+/* 14. MESSAGES / NOTIFICATIONS */
+ul.messagelist li {
+    border-radius: 5px !important;
+    padding: 10px 14px !important;
+    margin-bottom: 10px !important;
+}
+
+ul.messagelist li.success {
+    background: #14351f !important;
+    color: #81c784 !important;
+    border: 1px solid #2e7d32 !important;
+}
+
+ul.messagelist li.warning {
+    background: #3e2710 !important;
+    color: #ffb74d !important;
+    border: 1px solid #f57c00 !important;
+}
+
+ul.messagelist li.error {
+    background: #3e1414 !important;
+    color: #e57373 !important;
+    border: 1px solid #c62828 !important;
+}
+
+/* 15. RESPONSIVE BREAKPOINTS */
+@media (max-width: 860px) {
+    #header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 10px 16px !important;
+        gap: 8px !important;
+    }
+    #header #user-tools {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
+    }
+    #user-tools .user-sep {
+        display: none !important;
+    }
+}

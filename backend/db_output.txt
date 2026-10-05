@@ -1,0 +1,3 @@
+Title AZ: 'Layihənizi Bu Gün Başladaq'
+Title EN: 'Let's Launch Your Project Today'
+Subtitle AZ: 'Peşəkar komandamızla birlikdə biznesinizi rəqəmsal zirvəyə qaldırın.'

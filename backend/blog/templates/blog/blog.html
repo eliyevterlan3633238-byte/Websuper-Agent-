@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Blog" %} - WebSuper Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header parallax-bg" id="blogHeader" style="background-image: url('{% if site_settings.blog_hero_image %}{{ site_settings.blog_hero_image.url }}{% else %}https://images.unsplash.com/photo-1512314889357-e157c22f938d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80{% endif %}');">
+    <div class="header-overlay"></div>
+    <div class="header-content" data-aos="fade-up">
+        <h1>{% trans "Rəqəmsal" %} <span class="text-gradient">{% trans "Blog" %}</span></h1>
+        <div class="breadcrumb">
+            
+        </div>
+    </div>
+</div>
+
+<!-- Blog Section -->
+<section class="blog-section">
+    <div class="blog-grid" id="blogGrid">
+        {% if page_obj %}
+            {% for post in page_obj %}
+            <div class="parallax-float" data-depth="{% cycle '-0.06' '0.1' '-0.04' '0.14' %}">
+                <div class="blog-card tilt-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00" onclick="window.location.href='{% url 'blog:detail' post.slug %}'" style="cursor: pointer;">
+                    <div class="blog-img">
+                        <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+                        {% if post.category %}
+                        <span class="category-badge">{{ post.category.name }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> {{ post.created_at|date:"d M Y" }}</span>
+                            <span><i class="fas fa-user"></i> {{ post.author.username }}</span>
+                        </div>
+                        <h3><a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a></h3>
+                        <p>{{ post.excerpt }}</p>
+                        <a href="{% url 'blog:detail' post.slug %}" class="btn btn-primary mt-3" style="display: inline-block; padding: 10px 25px; border-radius: 50px;">{% trans "Oxu" %} &rarr;</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5" style="width: 100%; grid-column: 1 / -1;">
+                <h3 style="color: var(--text-secondary);">{% trans "Hələ heç bir blog əlavə olunmayıb" %}</h3>
+                <p>{% trans "Tezliklə yeni məqalələrimiz burada yer alacaq." %}</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="pagination-container mt-5 text-center" style="display: flex; justify-content: center; gap: 10px;">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline">&laquo; {% trans "Əvvəlki" %}</a>
+        {% endif %}
+        
+        {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+                <span class="btn btn-primary" style="pointer-events: none;">{{ i }}</span>
+            {% else %}
+                <a href="?page={{ i }}" class="btn btn-outline">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline">{% trans "Sonrakı" %} &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+</script>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Portfolio" %} - WebSuper Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header parallax-bg" id="portfolioHeader" style="background-image: url('{% if site_settings.portfolio_hero_image %}{{ site_settings.portfolio_hero_image.url }}{% else %}https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80{% endif %}');">
+    <div class="header-overlay"></div>
+    <div class="header-content" data-aos="fade-up">
+        <h1>{% trans "Bizi İfadə Edən" %} <span class="text-gradient">{% trans "İşlər" %}</span></h1>
+        <div class="breadcrumb">
+            
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Section -->
+<section class="portfolio-section">
+    <!-- Filters -->
+    <div class="portfolio-filters" data-aos="fade-up">
+        <button class="filter-btn active" data-filter="all">{% trans "Hamısı" %}</button>
+        {% for cat in categories %}
+        <button class="filter-btn" data-filter="{{ cat.slug }}">{{ cat.name }}</button>
+        {% endfor %}
+    </div>
+
+    <!-- Grid -->
+    <div class="portfolio-grid">
+        {% if projects %}
+            {% for project in projects %}
+            <div class="parallax-float" data-depth="{% cycle '-0.08' '0.12' '-0.05' '0.15' %}">
+                <div class="portfolio-item {{ project.category.slug }} tilt-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:1 }}00" onclick="window.location.href='{% url 'portfolio:detail' project.slug %}'" style="cursor: pointer;">
+                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+                    <div class="portfolio-overlay">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.category.name }}</p>
+                        <a href="{% url 'portfolio:detail' project.slug %}" class="btn btn-primary">{% trans "Bax" %}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- Dummy Items -->
+            {% for i in '123456'|make_list %}
+            <div class="parallax-float" data-depth="{% cycle '-0.08' '0.12' '-0.05' '0.15' %}">
+                <div class="portfolio-item web tilt-card" data-aos="zoom-in" data-aos-delay="100" onclick="alert('{% trans 'Bu nümunə layihədir. Əsl layihələri görmək üçün zəhmət olmasa admin paneldən məlumat əlavə edin.' %}');">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Web Project">
+                    <div class="portfolio-overlay">
+                        <h3>{% trans "Layihə" %} {{ i }}</h3>
+                        <p>Web</p>
+                        <a href="javascript:void(0);" class="btn btn-primary">{% trans "Ətraflı bax" %}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Portfolio Filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            portfolioItems.forEach(item => {
+                if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

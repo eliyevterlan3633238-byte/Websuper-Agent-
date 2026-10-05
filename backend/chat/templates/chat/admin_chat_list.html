@@ -1,0 +1,151 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    .chat-list-container {
+        margin: 20px 0;
+        background: var(--surface);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        overflow: hidden;
+    }
+    .chat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: background 0.3s ease;
+    }
+    .chat-row:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    .chat-row:last-child {
+        border-bottom: none;
+    }
+    .chat-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .chat-name {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .chat-preview {
+        font-size: 14px;
+        color: var(--text-secondary);
+        max-width: 600px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .chat-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
+    .chat-date {
+        font-size: 12px;
+        color: var(--text-secondary);
+    }
+    .unread-badge {
+        background: #ff4757;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 15px;
+        box-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
+    }
+</style>
+
+<div style="margin: 20px 0; display: flex; gap: 10px;">
+    <form method="GET" style="display: flex; gap: 10px; width: 100%;">
+        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Müştəri adı ilə axtar..." style="flex: 1; padding: 10px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: var(--surface); color: var(--text-primary); font-family: inherit;">
+        <button type="submit" style="background: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%); color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Axtar</button>
+        {% if request.GET.q %}
+        <a href="?" style="background: rgba(255,255,255,0.1); color: var(--text-primary); text-decoration: none; padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">Təmizlə</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="chat-list-container">
+    {% for chat_item in chats %}
+    <a href="{% url 'chat:chat_detail' chat_item.id %}" class="chat-row">
+        <div class="chat-info">
+            <div class="chat-name">{{ chat_item.customer_name }}</div>
+            <div class="chat-preview">
+                {% if chat_item.last_message %}
+                    {{ chat_item.last_message.text|truncatechars:50 }}
+                {% else %}
+                    {% trans "Mesaj yoxdur" %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="chat-meta">
+            <div class="chat-date">
+                {% if chat_item.last_message %}
+                    {{ chat_item.last_message.created_at|date:"d M Y, H:i" }}
+                {% else %}
+                    {{ chat_item.updated_at|date:"d M Y, H:i" }}
+                {% endif %}
+            </div>
+            {% if chat_item.unread_count > 0 %}
+            <div class="unread-badge">{{ chat_item.unread_count }}</div>
+            {% endif %}
+            <div class="delete-chat-btn" onclick="event.preventDefault(); deleteChat('{{ chat_item.id }}');" title="Çatı sil" style="margin-left: 15px; color: #ff4757; cursor: pointer; padding: 5px;">
+                <i class="fas fa-trash"></i>
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+        {% trans "Heç bir çat tapılmadı." %}
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener('newChatMessage', function(e) {
+        // Yeni mesaj gəldikdə səhifəni yeniləmədən siyahını arxada çəkirik
+        fetch(window.location.href)
+            .then(response => response.text())
+            .then(html => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(html, 'text/html');
+                let newContainer = doc.querySelector('.chat-list-container');
+                let oldContainer = document.querySelector('.chat-list-container');
+                
+                if (newContainer && oldContainer) {
+                    oldContainer.innerHTML = newContainer.innerHTML;
+                }
+            })
+            .catch(err => console.error('Siyahı yenilənərkən xəta:', err));
+    });
+
+    function deleteChat(chatId) {
+        if (confirm('Bu çatı və bütün mesajları silmək istədiyinizə əminsiniz?')) {
+            fetch(`/admin/chat/delete/${chatId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Silindikdən sonra səhifəni avtomatik arxada yenilə
+                    document.dispatchEvent(new CustomEvent('newChatMessage', {}));
+                }
+            })
+            .catch(err => console.error(err));
+        }
+    }
+</script>
+{% endblock %}

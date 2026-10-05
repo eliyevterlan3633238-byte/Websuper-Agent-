@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Privacy Policy" %} - WebSuper Agency{% endblock %}
+
+{% block content %}
+<div style="padding: 150px 5% 50px; max-width: 800px; margin: 0 auto; color: var(--text-primary);">
+    <h1 class="text-gradient" style="margin-bottom: 30px;">{% trans "Privacy Policy" %}</h1>
+    
+    <div style="line-height: 1.8;">
+        <p>{% trans "Last updated" %}: {% now "j E Y" %}</p>
+        
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary-start);">1. {% trans "Introduction" %}</h3>
+        <p>{% trans "Welcome to WebSuper Agency. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website." %}</p>
+        
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary-start);">2. {% trans "The data we collect about you" %}</h3>
+        <p>{% trans "We may collect, use, store and transfer different kinds of personal data about you, including Identity Data (first name, last name), Contact Data (email address, telephone numbers), and Technical Data (IP address, browser type and version)." %}</p>
+        
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary-start);">3. {% trans "How we use your personal data" %}</h3>
+        <p>{% trans "We will only use your personal data when the law allows us to. Most commonly, we will use your personal data to provide our services, to manage our relationship with you, or to improve our website." %}</p>
+        
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary-start);">4. {% trans "Contact us" %}</h3>
+        <p>{% trans "If you have any questions about this privacy policy or our privacy practices, please contact us." %}</p>
+    </div>
+</div>
+{% endblock %}

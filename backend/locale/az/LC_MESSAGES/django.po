@@ -1,0 +1,577 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WebSuper 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 00:00+0400\n"
+"PO-Revision-Date: 2026-09-22 00:00+0400\n"
+"Last-Translator: Antigravity <info@websuper.az>\n"
+"Language-Team: az\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home"
+msgstr "Ana Səhifə"
+
+msgid "About"
+msgstr "Haqqımızda"
+
+msgid "Portfolio"
+msgstr "Portfolio"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Contact"
+msgstr "Əlaqə"
+
+msgid "Müasir veb həllər və innovativ dizaynlar."
+msgstr "Müasir veb həllər və innovativ dizaynlar."
+
+msgid "Bütün hüquqlar qorunur."
+msgstr "Bütün hüquqlar qorunur."
+
+msgid "Dili dəyişdir"
+msgstr "Dili dəyişdir"
+
+msgid "Ana Səhifə"
+msgstr "Ana Səhifə"
+
+msgid "Haqqımızda"
+msgstr "Haqqımızda"
+
+msgid "Əlaqə"
+msgstr "Əlaqə"
+
+msgid "Bizimlə"
+msgstr "Bizimlə"
+
+msgid "Bizi İfadə Edən"
+msgstr "Bizi İfadə Edən"
+
+msgid "İşlər"
+msgstr "İşlər"
+
+msgid "Rəqəmsal"
+msgstr "Rəqəmsal"
+
+msgid "Telefon"
+msgstr "Telefon"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Ünvan"
+msgstr "Ünvan"
+
+msgid "Mesaj Göndərin"
+msgstr "Mesaj Göndərin"
+
+msgid "Hər hansı bir sualınız və ya layihəniz varsa, bizə yazın."
+msgstr "Hər hansı bir sualınız və ya layihəniz varsa, bizə yazın."
+
+msgid "Göndər"
+msgstr "Göndər"
+
+msgid "Adınız və Soyadınız"
+msgstr "Adınız və Soyadınız"
+
+msgid "Email ünvanınız"
+msgstr "Email ünvanınız"
+
+msgid "Telefon nömrəniz"
+msgstr "Telefon nömrəniz"
+
+msgid "Mövzu"
+msgstr "Mövzu"
+
+msgid "Mesajınız"
+msgstr "Mesajınız"
+
+msgid "Zəhmət olmasa, bütün mütləq sahələri doldurun."
+msgstr "Zəhmət olmasa, bütün mütləq sahələri doldurun."
+
+msgid "Bizim"
+msgstr "Bizim"
+
+msgid "Hekayəmiz"
+msgstr "Hekayəmiz"
+
+msgid ""
+"WebSuper Agency olaraq biznesləri rəqəmsallaşdırmaq və onlara bazarda "
+"rəqabət üstünlüyü qazandırmaq məqsədilə fəaliyyətə başladıq. Biz sadəcə kod "
+"yazmırıq, istifadəçilərinizi heyran edəcək vizual təcrübələr və etibarlı "
+"həllər yaradırıq."
+msgstr ""
+"WebSuper Agency olaraq biznesləri rəqəmsallaşdırmaq və onlara bazarda "
+"rəqabət üstünlüyü qazandırmaq məqsədilə fəaliyyətə başladıq. Biz sadəcə kod "
+"yazmırıq, istifadəçilərinizi heyran edəcək vizual təcrübələr və etibarlı "
+"həllər yaradırıq."
+
+msgid ""
+"Missiyamız hər bir müştərinin brend dəyərini artırmaq və innovativ "
+"texnologiyalarla onlara dəstək olmaqdır."
+msgstr ""
+"Missiyamız hər bir müştərinin brend dəyərini artırmaq və innovativ "
+"texnologiyalarla onlara dəstək olmaqdır."
+
+msgid "Dəyərlərimiz"
+msgstr "Dəyərlərimiz"
+
+msgid "Bizi fərqləndirən əsas prinsiplər."
+msgstr "Bizi fərqləndirən əsas prinsiplər."
+
+msgid "İnnovasiya"
+msgstr "İnnovasiya"
+
+msgid "Daim yeni texnologiyalar axtarır və tətbiq edirik."
+msgstr "Daim yeni texnologiyalar axtarır və tətbiq edirik."
+
+msgid "Etibarlılıq"
+msgstr "Etibarlılıq"
+
+msgid "Verdiyimiz sözlərin arxasında dayanırıq."
+msgstr "Verdiyimiz sözlərin arxasında dayanırıq."
+
+msgid "Keyfiyyət"
+msgstr "Keyfiyyət"
+
+msgid "Hər detalda mükəmməlliyə can atırıq."
+msgstr "Hər detalda mükəmməlliyə can atırıq."
+
+msgid "Peşəkar"
+msgstr "Peşəkar"
+
+msgid "Komandamız"
+msgstr "Komandamız"
+
+msgid "Layihələrinizi həyata keçirən istedadlı şəxslər."
+msgstr "Layihələrinizi həyata keçirən istedadlı şəxslər."
+
+msgid "Təcrübə"
+msgstr "Təcrübə"
+
+msgid "Bacarıqlar"
+msgstr "Bacarıqlar"
+
+msgid "Layihələr"
+msgstr "Layihələr"
+
+msgid "il"
+msgstr "il"
+
+msgid "Məlumat yoxdur"
+msgstr "Məlumat yoxdur"
+
+msgid "Haqqında ətraflı məlumat yoxdur."
+msgstr "Haqqında ətraflı məlumat yoxdur."
+
+msgid "Hamısı"
+msgstr "Hamısı"
+
+msgid "Bax"
+msgstr "Bax"
+
+msgid "Ətraflı bax"
+msgstr "Ətraflı bax"
+
+msgid "Layihə"
+msgstr "Layihə"
+
+msgid "Texnologiya"
+msgstr "Texnologiya"
+
+msgid "Tarix"
+msgstr "Tarix"
+
+msgid "Layihə Haqqında"
+msgstr "Layihə Haqqında"
+
+msgid "Layihə haqqında məlumat yoxdur."
+msgstr "Layihə haqqında məlumat yoxdur."
+
+msgid "Problem"
+msgstr "Problem"
+
+msgid "Həll Yolu"
+msgstr "Həll Yolu"
+
+msgid "Oxu"
+msgstr "Oxu"
+
+msgid "Hələ heç bir blog əlavə olunmayıb"
+msgstr "Hələ heç bir blog əlavə olunmayıb"
+
+msgid "Tezliklə yeni məqalələrimiz burada yer alacaq."
+msgstr "Tezliklə yeni məqalələrimiz burada yer alacaq."
+
+msgid "Əvvəlki"
+msgstr "Əvvəlki"
+
+msgid "Sonrakı"
+msgstr "Sonrakı"
+
+msgid "Müəllif"
+msgstr "Müəllif"
+
+msgid "WebSuper Agency mütəxəssisi"
+msgstr "WebSuper Agency mütəxəssisi"
+
+msgid "Təsadüfi Bloglar"
+msgstr "Təsadüfi Bloglar"
+
+msgid "Kateqoriyalar"
+msgstr "Kateqoriyalar"
+
+msgid "Populyar Teqlər"
+msgstr "Populyar Teqlər"
+
+msgid "Hələ də veb saytınız yoxdur? Dayanmayın!"
+msgstr "Hələ də veb saytınız yoxdur? Dayanmayın!"
+
+msgid "Əlaqə Saxla"
+msgstr "Əlaqə Saxla"
+
+msgid "Ətraflı Bax"
+msgstr "Ətraflı Bax"
+
+msgid "Müştəri"
+msgstr "Müştəri"
+
+msgid "İl Təcrübə"
+msgstr "İl Təcrübə"
+
+msgid "Dəstək"
+msgstr "Dəstək"
+
+msgid "Xidmətlərimiz"
+msgstr "Xidmətlərimiz"
+
+msgid "Biznesinizin inkişafı üçün tam əhatəli rəqəmsal həllər."
+msgstr "Biznesinizin inkişafı üçün tam əhatəli rəqəmsal həllər."
+
+msgid "Veb Development"
+msgstr "Veb Development"
+
+msgid "Müasir, sürətli və istifadəçi dostu veb saytların yaradılması."
+msgstr "Müasir, sürətli və istifadəçi dostu veb saytların yaradılması."
+
+msgid "Mobil Tətbiqlər"
+msgstr "Mobil Tətbiqlər"
+
+msgid "iOS və Android üçün nativ və çarpaz platformalı tətbiqlər."
+msgstr "iOS və Android üçün nativ və çarpaz platformalı tətbiqlər."
+
+msgid "UI/UX Dizayn"
+msgstr "UI/UX Dizayn"
+
+msgid "Müştəriləri cəlb edən \"wow\" effektli, funksional dizaynlar."
+msgstr "Müştəriləri cəlb edən \"wow\" effektli, funksional dizaynlar."
+
+msgid "İş Prosesimiz"
+msgstr "İş Prosesimiz"
+
+msgid "İdeyanızdan real məhsula gedən mükəmməl yol."
+msgstr "İdeyanızdan real məhsula gedən mükəmməl yol."
+
+msgid "Kəşfiyyat"
+msgstr "Kəşfiyyat"
+
+msgid "Biznes ehtiyaclarınızı və hədəflərinizi öyrənirik."
+msgstr "Biznes ehtiyaclarınızı və hədəflərinizi öyrənirik."
+
+msgid "Dizayn"
+msgstr "Dizayn"
+
+msgid "İstifadəçi təcrübəsini əsas alaraq interfeyslər yaradırıq."
+msgstr "İstifadəçi təcrübəsini əsas alaraq interfeyslər yaradırıq."
+
+msgid "Development"
+msgstr "Development"
+
+msgid "Ən son texnologiyalarla kodlaşdırma prosesi aparılır."
+msgstr "Ən son texnologiyalarla kodlaşdırma prosesi aparılır."
+
+msgid "Təhvil & Dəstək"
+msgstr "Təhvil & Dəstək"
+
+msgid "Məhsulu təhvil verib daimi texniki dəstək göstəririk."
+msgstr "Məhsulu təhvil verib daimi texniki dəstək göstəririk."
+
+msgid "Son Yazılarımız"
+msgstr "Son Yazılarımız"
+
+msgid "Blogumuzdan sənaye xəbərləri və faydalı məlumatlar."
+msgstr "Blogumuzdan sənaye xəbərləri və faydalı məlumatlar."
+
+msgid "Veb saytlarda animasiyanın rolu"
+msgstr "Veb saytlarda animasiyanın rolu"
+
+msgid "2026-cı ilin UI/UX trendləri"
+msgstr "2026-cı ilin UI/UX trendləri"
+
+msgid "Django ilə təhlükəsizlik qaydaları"
+msgstr "Django ilə təhlükəsizlik qaydaları"
+
+msgid "Qiymətlərimiz"
+msgstr "Qiymətlərimiz"
+
+msgid "Ehtiyaclarınıza və büdcənizə uyğun ideal paketi seçin."
+msgstr "Ehtiyaclarınıza və büdcənizə uyğun ideal paketi seçin."
+
+msgid "Ən Populyar"
+msgstr "Ən Populyar"
+
+msgid "Sifariş Ver"
+msgstr "Sifariş Ver"
+
+msgid "Başlanğıc"
+msgstr "Başlanğıc"
+
+msgid "AZN-dən"
+msgstr "AZN-dən"
+
+msgid "Kiçik bizneslər və startaplar üçün ideal seçim."
+msgstr "Kiçik bizneslər və startaplar üçün ideal seçim."
+
+msgid "Standart"
+msgstr "Standart"
+
+msgid "Korporativ şirkətlər üçün tam funksional həll."
+msgstr "Korporativ şirkətlər üçün tam funksional həll."
+
+msgid "Premium"
+msgstr "Premium"
+
+msgid "Genişmiqyaslı və xüsusi e-ticarət/platforma həlləri."
+msgstr "Genişmiqyaslı və xüsusi e-ticarət/platforma həlləri."
+
+msgid "Layihənizi Bu Gün Başladaq"
+msgstr "Layihənizi Bu Gün Başladaq"
+
+msgid "Peşəkar komandamızla birlikdə biznesinizi rəqəmsal zirvəyə qaldırın."
+msgstr "Peşəkar komandamızla birlikdə biznesinizi rəqəmsal zirvəyə qaldırın."
+
+msgid "Bizimlə Əlaqə"
+msgstr "Bizimlə Əlaqə"
+
+msgid "Privacy Policy"
+msgstr "Məxfilik Siyasəti"
+
+msgid "Last updated"
+msgstr "Son yenilənmə"
+
+msgid "Introduction"
+msgstr "Giriş"
+
+msgid ""
+"Welcome to WebSuper Agency. We respect your privacy and are committed to "
+"protecting your personal data. This privacy policy will inform you as to how"
+" we look after your personal data when you visit our website."
+msgstr ""
+"WebSuper Agency-yə xoş gəlmisiniz. Biz sizin məxfiliyinizə hörmət edirik və "
+"şəxsi məlumatlarınızı qorumağa sadiqik. Bu məxfilik siyasəti vebsaytımıza "
+"daxil olduğunuz zaman şəxsi məlumatlarınıza necə baxdığımız barədə sizə "
+"məlumat verəcəkdir."
+
+msgid "The data we collect about you"
+msgstr "Sizin haqqınızda topladığımız məlumatlar"
+
+msgid ""
+"We may collect, use, store and transfer different kinds of personal data "
+"about you, including Identity Data (first name, last name), Contact Data "
+"(email address, telephone numbers), and Technical Data (IP address, browser "
+"type and version)."
+msgstr ""
+"Biz sizin haqqınızda Şəxsiyyət Məlumatları (ad, soyad), Əlaqə Məlumatları "
+"(e-poçt ünvanı, telefon nömrələri) və Texniki Məlumatlar (IP ünvanı, brauzer"
+" növü və versiyası) daxil olmaqla müxtəlif növ şəxsi məlumatları toplaya, "
+"istifadə edə, saxlaya və ötürə bilərik."
+
+msgid "How we use your personal data"
+msgstr "Şəxsi məlumatlarınızı necə istifadə edirik"
+
+msgid ""
+"We will only use your personal data when the law allows us to. Most "
+"commonly, we will use your personal data to provide our services, to manage "
+"our relationship with you, or to improve our website."
+msgstr ""
+"Şəxsi məlumatlarınızdan yalnız qanun icazə verdiyi hallarda istifadə "
+"edəcəyik. Ən çox, biz şəxsi məlumatlarınızdan xidmətlərimizi təmin etmək, "
+"sizinlə əlaqələrimizi idarə etmək və ya vebsaytımızı inkişaf etdirmək üçün "
+"istifadə edəcəyik."
+
+msgid "Contact us"
+msgstr "Bizimlə əlaqə"
+
+msgid ""
+"If you have any questions about this privacy policy or our privacy "
+"practices, please contact us."
+msgstr ""
+"Bu məxfilik siyasəti və ya məxfilik təcrübəmizlə bağlı hər hansı sualınız "
+"varsa, lütfən bizimlə əlaqə saxlayın."
+
+msgid ""
+"Biznesinizi rəqəmsal dünyada inkişaf etdirmək üçün peşəkar komandamızla ən "
+"son texnologiyalara əsaslanan kreativ həllər təqdim edirik."
+msgstr ""
+"Biznesinizi rəqəmsal dünyada inkişaf etdirmək üçün peşəkar komandamızla ən "
+"son texnologiyalara əsaslanan kreativ həllər təqdim edirik."
+
+msgid "Naviqasiya"
+msgstr "Naviqasiya"
+
+msgid "Xidmətlər"
+msgstr "Xidmətlər"
+
+msgid "Veb Tətbiqlər"
+msgstr "Veb Tətbiqlər"
+
+msgid "Mobil Tətbiqlər (iOS/Android)"
+msgstr "Mobil Tətbiqlər (iOS/Android)"
+
+msgid "Korporativ Kimlik/Brendinq"
+msgstr "Korporativ Kimlik/Brendinq"
+
+msgid "SaaS Həlləri"
+msgstr "SaaS Həlləri"
+
+msgid "Əsas Hero Başlığı"
+msgstr "Əsas Hero Başlığı"
+
+msgid "Ana Səhifə Hero Bölməsi"
+msgstr "Ana Səhifə Hero Bölməsi"
+
+msgid "Xidmət"
+msgstr "Xidmət"
+
+msgid "Xidmətlərimiz Bölməsi (3 Əsas Kart)"
+msgstr "Xidmətlərimiz Bölməsi (3 Əsas Kart)"
+
+msgid "İş Prosesi Mərhələsi"
+msgstr "İş Prosesi Mərhələsi"
+
+msgid "İş Prosesimiz Mərhələləri (1, 2, 3, 4)"
+msgstr "İş Prosesimiz Mərhələləri (1, 2, 3, 4)"
+
+msgid "Son CTA Bölməsi"
+msgstr "Son CTA Bölməsi"
+
+msgid "Son CTA Bölməsi (Layihənizi Başladaq)"
+msgstr "Son CTA Bölməsi (Layihənizi Başladaq)"
+
+msgid "Qiymət Paketi"
+msgstr "Qiymət Paketi"
+
+msgid "Qiymət Paketləri (Tariflər)"
+msgstr "Qiymət Paketləri (Tariflər)"
+
+msgid "Statistika Rəqəmi"
+msgstr "Statistika Rəqəmi"
+
+msgid "Statistika Bloku (150+, 50+ və s.)"
+msgstr "Statistika Bloku (150+, 50+ və s.)"
+
+msgid "Ana Səhifə Slaydı"
+msgstr "Ana Səhifə Slaydı"
+
+msgid "Ana Səhifə Slayderi"
+msgstr "Ana Səhifə Slayderi"
+
+msgid "Sayt Əlaqə & Sosial Media Tənzimləmələri"
+msgstr "Sayt Əlaqə & Sosial Media Tənzimləmələri"
+
+msgid "Sayt Ümumi Tənzimləmələri"
+msgstr "Sayt Ümumi Tənzimləmələri"
+
+msgid "Haqqımızda Məzmunu"
+msgstr "Haqqımızda Məzmunu"
+
+msgid "Haqqımızda Bölməsi"
+msgstr "Haqqımızda Bölməsi"
+
+msgid "Komanda Üzvü"
+msgstr "Komanda Üzvü"
+
+msgid "Komanda Üzvləri (Haqqımızda/Ana Səhifə)"
+msgstr "Komanda Üzvləri (Haqqımızda/Ana Səhifə)"
+
+msgid "Dəyər"
+msgstr "Dəyər"
+
+msgid "Dəyərlərimiz (Haqqımızda)"
+msgstr "Dəyərlərimiz (Haqqımızda)"
+
+msgid "Layihə Kateqoriyası"
+msgstr "Layihə Kateqoriyası"
+
+msgid "Layihə Kateqoriyaları"
+msgstr "Layihə Kateqoriyaları"
+
+msgid "Portfolio Layihəsi"
+msgstr "Portfolio Layihəsi"
+
+msgid "Portfolio Layihələri"
+msgstr "Portfolio Layihələri"
+
+msgid "Layihə Qalereya Şəkili"
+msgstr "Layihə Qalereya Şəkili"
+
+msgid "Layihə Qalereyası Şəkilləri"
+msgstr "Layihə Qalereyası Şəkilləri"
+
+msgid "Məqalə Kateqoriyası"
+msgstr "Məqalə Kateqoriyası"
+
+msgid "Məqalə Kateqoriyaları"
+msgstr "Məqalə Kateqoriyaları"
+
+msgid "Teq"
+msgstr "Teq"
+
+msgid "Teqlər"
+msgstr "Teqlər"
+
+msgid "Məqalə"
+msgstr "Məqalə"
+
+msgid "Blog Məqalələri"
+msgstr "Blog Məqalələri"
+
+msgid "Gələn Mesaj"
+msgstr "Gələn Mesaj"
+
+msgid "Gələn Mesajlar (Əlaqə Formu)"
+msgstr "Gələn Mesajlar (Əlaqə Formu)"
+
+msgid "Ümumi Əlaqə"
+msgstr "Ümumi Əlaqə"
+
+msgid "Sosial Şəbəkələr (Header & Footer)"
+msgstr "Sosial Şəbəkələr (Header & Footer)"
+
+msgid "Arxa Fon Şəkilləri (Hero Bölməsi)"
+msgstr "Arxa Fon Şəkilləri (Hero Bölməsi)"
+
+msgid "Ana Səhifə Arxa Fon Şəkilləri"
+msgstr "Ana Səhifə Arxa Fon Şəkilləri"
+
+msgid "Müştəri Məlumatları"
+msgstr "Müştəri Məlumatları"
+
+msgid "Mesajın Məzmunu"
+msgstr "Mesajın Məzmunu"
+
+msgid "Status və Tarix"
+msgstr "Status və Tarix"
+
+msgid "Müraciət göndərən şəxsin əlaqə vasitələri"
+msgstr "Müraciət göndərən şəxsin əlaqə vasitələri"
+
+msgid "Göndərilən müraciət mövzusu və ətraflı mətn"
+msgstr "Göndərilən müraciət mövzusu və ətraflı mətn"
+
+msgid "Mesajın oxunma vəziyyəti və qəbul edilmə vaxtı"
+msgstr "Mesajın oxunma vəziyyəti və qəbul edilmə vaxtı"

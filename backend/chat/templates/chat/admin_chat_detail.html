@@ -1,0 +1,258 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    /* Reuse widget styles but adapt for admin container */
+    .admin-chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 70vh;
+        background: #111;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        overflow: hidden;
+        margin-top: 20px;
+        --gradient-main: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%);
+        --primary-start: #EFF25A;
+    }
+    .admin-chat-header {
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .admin-chat-history {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    /* Copied from widget styles */
+    .chat-message {
+        display: flex;
+        flex-direction: column;
+        max-width: 80%;
+        animation: fadeIn 0.3s ease;
+    }
+    .chat-message.customer {
+        align-self: flex-start;
+        align-items: flex-start;
+    }
+    .chat-message.bot, .chat-message.operator {
+        align-self: flex-end;
+        align-items: flex-end;
+    }
+    .chat-message.bot .bubble, .chat-message.operator .bubble {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: #fff;
+        border-bottom-right-radius: 5px;
+    }
+    .chat-message.customer .bubble {
+        background: var(--gradient-main);
+        color: #000;
+        border-bottom-left-radius: 5px;
+    }
+    .bubble {
+        padding: 10px 15px;
+        border-radius: 15px;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+    
+    .msg-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 5px;
+        font-size: 13px;
+        transition: opacity 0.2s;
+    }
+
+    .msg-actions i {
+        cursor: pointer;
+        color: rgba(255,255,255,0.7);
+    }
+
+    .msg-actions i.fa-edit:hover { color: #3498db; }
+    .msg-actions i.fa-trash:hover { color: #ff4757; }
+    .admin-chat-input-area {
+        padding: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    #adminChatForm {
+        display: flex;
+        gap: 10px;
+    }
+    #adminChatForm input {
+        flex: 1;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 10px 15px;
+        color: #fff;
+        font-family: inherit;
+    }
+    #adminChatForm input:focus {
+        outline: none;
+        border-color: var(--primary-start);
+    }
+    #adminChatForm button {
+        background: var(--gradient-main);
+        color: #000;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+    #adminChatForm button:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+<div class="admin-chat-container">
+    <div class="admin-chat-header">
+        <h3>{{ chat.customer_name }} ({% trans "Çat ID" %}: {{ chat.id }})</h3>
+        <a href="{% url 'chat:chat_list' %}" style="color: var(--text-secondary); text-decoration: none;">&larr; {% trans "Siyahıya qayıt" %}</a>
+    </div>
+    
+    <div class="admin-chat-history" id="adminChatHistory">
+        {% for msg in chat_messages %}
+        <div class="chat-message {{ msg.sender_type }}" data-id="{{ msg.id }}">
+            <div class="bubble">{{ msg.text }}</div>
+            {% if msg.sender_type == 'operator' %}
+            <div class="msg-actions">
+                <i class="fas fa-edit" onclick="editMessage({{ msg.id }}, this)" title="Redaktə et"></i>
+                <i class="fas fa-trash" onclick="deleteMessage({{ msg.id }})" title="Sil"></i>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="admin-chat-input-area">
+        <form id="adminChatForm" autocomplete="off">
+            <input type="text" id="adminChatMessage" placeholder="{% trans 'Mesajınızı yazın...' %}" required>
+            <button type="submit" aria-label="{% trans 'Göndər' %}"><i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+</div>
+
+{{ chat.id|json_script:"chat-id" }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatId = JSON.parse(document.getElementById('chat-id').textContent);
+        const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+        const chatSocket = new WebSocket(wsScheme + '://' + window.location.host + '/ws/chat/' + chatId + '/?source=admin');
+        
+        const historyDiv = document.getElementById('adminChatHistory');
+        const form = document.getElementById('adminChatForm');
+        const input = document.getElementById('adminChatMessage');
+
+        historyDiv.scrollTop = historyDiv.scrollHeight;
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            if (data.action === 'message') {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'chat-message ' + data.sender_type;
+                if (data.message_id) msgDiv.dataset.id = data.message_id;
+                
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.textContent = data.message;
+                msgDiv.appendChild(bubble);
+                
+                if (data.sender_type === 'operator') {
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'msg-actions';
+                    actionsDiv.innerHTML = `
+                        <i class="fas fa-edit" onclick="editMessage(${data.message_id}, this)" title="Redaktə et"></i>
+                        <i class="fas fa-trash" onclick="deleteMessage(${data.message_id})" title="Sil"></i>
+                    `;
+                    msgDiv.appendChild(actionsDiv);
+                }
+                
+                historyDiv.appendChild(msgDiv);
+                historyDiv.scrollTop = historyDiv.scrollHeight;
+                
+                // If it's a customer message, notify server we read it immediately
+                if (data.sender_type === 'customer') {
+                    chatSocket.send(JSON.stringify({
+                        'action': 'read'
+                    }));
+                }
+            } else if (data.action === 'delete_message') {
+                const msgDiv = historyDiv.querySelector(`.chat-message[data-id="${data.message_id}"]`);
+                if (msgDiv) msgDiv.remove();
+            } else if (data.action === 'edit_message') {
+                const msgDiv = historyDiv.querySelector(`.chat-message[data-id="${data.message_id}"]`);
+                if (msgDiv) {
+                    const bubble = msgDiv.querySelector('.bubble');
+                    if (bubble) bubble.textContent = data.message;
+                }
+            }
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+            input.disabled = true;
+            input.placeholder = "{% trans 'Bağlantı kəsildi...' %}";
+        };
+
+        form.onsubmit = function(e) {
+            e.preventDefault();
+            const message = input.value.trim();
+            if (message) {
+                chatSocket.send(JSON.stringify({
+                    'action': 'message',
+                    'message': message
+                }));
+                input.value = '';
+            }
+        };
+        
+        window.deleteMessage = function(msgId) {
+            if (confirm('Bu mesajı silmək istədiyinizə əminsiniz? (Müştəridən də silinəcək)')) {
+                chatSocket.send(JSON.stringify({
+                    'action': 'delete_message',
+                    'message_id': msgId
+                }));
+            }
+        };
+        
+        window.editMessage = function(msgId, btnEl) {
+            const msgDiv = btnEl.closest('.chat-message');
+            const bubble = msgDiv.querySelector('.bubble');
+            const currentText = bubble.textContent;
+            
+            const newText = prompt('Mesajı redaktə edin:', currentText);
+            if (newText !== null && newText.trim() !== '' && newText.trim() !== currentText) {
+                chatSocket.send(JSON.stringify({
+                    'action': 'edit_message',
+                    'message_id': msgId,
+                    'message': newText.trim()
+                }));
+            }
+        };
+        
+        // Mark as read initially when socket connects
+        chatSocket.onopen = function(e) {
+            chatSocket.send(JSON.stringify({
+                'action': 'read'
+            }));
+        };
+    });
+</script>
+{% endblock %}

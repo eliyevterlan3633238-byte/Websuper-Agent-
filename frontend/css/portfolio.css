@@ -1,0 +1,211 @@
+/* Portfolio Section */
+.portfolio-section {
+    padding: 80px 5% 40px;
+}
+
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    color: var(--text-primary);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--gradient-main);
+    color: #0B0F0C;
+    border-color: transparent;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.portfolio-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    transition: all 0.4s ease;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 15, 12, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    padding: 20px;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.1);
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.portfolio-overlay h3 {
+    color: var(--primary-start);
+    margin-bottom: 10px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-overlay p {
+    color: #fff;
+    margin-bottom: 20px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease 0.1s;
+}
+
+.portfolio-overlay .btn {
+    transform: translateY(20px);
+    transition: transform 0.3s ease 0.2s;
+}
+
+.portfolio-item:hover .portfolio-overlay h3,
+.portfolio-item:hover .portfolio-overlay p,
+.portfolio-item:hover .portfolio-overlay .btn {
+    transform: translateY(0);
+}
+
+
+/* Case Study Detail */
+.case-study-section {
+    padding: 100px 5%;
+}
+.case-study-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 50px;
+}
+.case-sidebar {
+    background: var(--surface);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+.info-block {
+    margin-bottom: 20px;
+}
+.info-block h4 {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+.info-block p {
+    font-weight: 600;
+}
+.case-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+.case-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--primary-end);
+}
+.case-content p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+.mt-4 { margin-top: 40px; }
+.mt-5 { margin-top: 80px; }
+.mb-4 { margin-bottom: 40px; }
+
+.client-quote {
+    background: var(--gradient-main);
+    padding: 30px;
+    border-radius: 15px;
+    color: #0B0F0C;
+    font-size: 1.2rem;
+    font-style: italic;
+    position: relative;
+}
+.client-quote cite {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Gallery Section */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.gallery-item {
+    border-radius: 15px;
+    overflow: hidden;
+    height: 400px;
+}
+.gallery-item img {
+    width: 100%;
+    height: 120%; /* Extra height for parallax */
+    object-fit: cover;
+    margin-top: -10%; /* Offset for parallax */
+}
+
+@media (max-width: 768px) {
+    .portfolio-section {
+        padding: 40px 5% 40px; /* Optimize space on mobile */
+    }
+    .portfolio-filters {
+        margin-bottom: 25px;
+        gap: 8px;
+    }
+    .portfolio-grid {
+        gap: 15px; /* Reduce gap between portfolio cards */
+    }
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.95rem; /* Make filter text slightly larger/readable on mobile */
+    }
+    .case-study-container {
+        grid-template-columns: 1fr;
+    }
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,703 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{% block title %}WebSuper Agency{% endblock %}</title>
+
+    <!-- Favicon -->
+    {% load static %}
+    <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
+    <link rel="alternate icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/favicon.png' %}">
+
+    <!-- Google Fonts (Montserrat & Inter with full Azerbaijani & Cyrillic support) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=3.0">
+    <link rel="stylesheet" href="{% static 'css/parallax.css' %}?v=3.4">
+    {% block extra_css %}{% endblock %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- ============================================================
+         LIVE CHAT WIDGET CSS — inline, AFTER all other CSS (source order wins
+         ============================================================ -->
+    <style>
+    /* --- SHARED STYLES --- */
+    .ws-helper-btn,
+    .chat-button {
+        background: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%) !important;
+        border-radius: 50% !important;
+        border: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #ffffff !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 15px rgba(51, 179, 107, 0.4) !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        pointer-events: auto !important;
+    }
+    .ws-helper-btn i,
+    .chat-button i { color: inherit !important; }
+    .ws-helper-btn:hover,
+    .chat-button:hover {
+        transform: scale(1.08) !important;
+        box-shadow: 0 6px 20px rgba(51, 179, 107, 0.55) !important;
+    }
+    [data-theme="light"] .ws-helper-btn,
+    [data-theme="light"] .ws-helper-btn i { color: #363535 !important; }
+    [data-theme="dark"] .ws-helper-btn,
+    [data-theme="dark"] .ws-helper-btn i { color: #ffffff !important; }
+
+    .pulse-ring {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        border: 2px solid rgba(51,179,107,0.55);
+        border-radius: 50%;
+        animation: ws-pulse 2s infinite cubic-bezier(0.215, 0.610, 0.355, 1);
+        pointer-events: none; z-index: -1;
+    }
+    @keyframes ws-pulse {
+        0%   { transform: scale(1);   opacity: 0.85; }
+        100% { transform: scale(1.7); opacity: 0; }
+    }
+
+    .ws-helper-popup {
+        background: var(--surface, #ffffff) !important;
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s, visibility 0.3s;
+    }
+    .ws-helper-header {
+        background: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%) !important;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .ws-helper-header-info { display: flex; align-items: center; gap: 10px; }
+    .ws-helper-header-info h5 { margin: 0; font-size: 1.05rem; font-weight: 700; color: #0B0F0C; }
+    .ws-helper-header-info .bot-icon {
+        font-size: 1.4rem; color: #0B0F0C;
+        background: rgba(255,255,255,0.35);
+        border-radius: 50%; padding: 6px;
+    }
+    .ws-helper-header .close-helper {
+        background: none !important; border: none !important;
+        color: #0B0F0C !important; font-size: 1.3rem;
+        cursor: pointer; padding: 4px 8px; border-radius: 6px;
+    }
+    .ws-helper-history {
+        -webkit-overflow-scrolling: touch;
+        display: flex; flex-direction: column; gap: 12px;
+        background: var(--surface, #ffffff) !important;
+    }
+    .ws-helper-message { display: flex; align-items: flex-end; gap: 8px; max-width: 85%; }
+    .ws-helper-message.bot  { align-self: flex-start; }
+    .ws-helper-message.user { align-self: flex-end; flex-direction: row-reverse; }
+    .ws-helper-message .avatar {
+        width: 28px; height: 28px; border-radius: 50%;
+        background: rgba(51, 179, 107, 0.15);
+        color: #33B36B;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.8rem; flex-shrink: 0;
+    }
+    .ws-helper-message .bubble {
+        padding: 10px 14px; border-radius: 16px;
+        font-size: 0.9rem; line-height: 1.4; word-break: break-word;
+    }
+    .ws-helper-message.bot .bubble,
+    .ws-helper-message.operator .bubble {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: #fff;
+        border-bottom-left-radius: 4px;
+    }
+    .ws-helper-message.user .bubble {
+        background: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%);
+        color: #0B0F0C;
+        border-bottom-right-radius: 4px;
+    }
+    .ws-helper-input-area {
+        border-top: 1px solid var(--border-color, #e0e0e0) !important;
+        background: var(--surface, #ffffff) !important;
+    }
+    #wsHelperForm { display: flex; gap: 10px; align-items: center; }
+    #wsHelperForm input {
+        flex: 1; background: transparent !important; border: none !important;
+        color: var(--text-primary, #222) !important;
+        padding: 8px 0 !important; font: inherit; font-size: 0.9rem;
+    }
+    #wsHelperForm input:focus { outline: none !important; }
+    .ws-helper-submit-btn {
+        width: 38px !important; height: 38px !important;
+        border-radius: 50% !important; border: none !important;
+        background: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%) !important;
+        color: #0B0F0C !important;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; cursor: pointer; flex-shrink: 0;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ws-helper-submit-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(51, 179, 107, 0.4);
+    }
+    .typing-indicator .dots { display: flex; gap: 4px; }
+    .typing-indicator .dots span {
+        width: 6px; height: 6px;
+        background: rgba(255,255,255,0.7);
+        border-radius: 50%;
+        animation: ws-bounce 1.4s infinite ease-in-out both;
+    }
+    .typing-indicator .dots span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-indicator .dots span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes ws-bounce { 0%,80%,100% { transform: scale(0) } 40% { transform: scale(1) } }
+
+    /* --- DESKTOP (min-width: 768px) --- */
+    @media (min-width: 768px) {
+        .ws-helper-box,
+        .live-chat-widget {
+            position: fixed !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            bottom: 60px !important;
+            right: 20px !important;
+            width: 60px !important;
+            height: 60px !important;
+            z-index: 999999 !important;
+            overflow: visible !important;
+            pointer-events: auto !important;
+        }
+        .ws-helper-btn,
+        .chat-button {
+            position: absolute !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            width: 60px !important;
+            height: 60px !important;
+            font-size: 1.5rem !important;
+        }
+        .ws-helper-popup {
+            position: fixed !important;
+            bottom: 110px !important;
+            right: 20px !important;
+            width: 320px !important;
+            border-radius: 15px !important;
+            border: 1px solid var(--border-color, #e0e0e0) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.22) !important;
+            overflow: hidden !important;
+            transform-origin: bottom right;
+            transform: scale(0);
+            z-index: 999999 !important;
+        }
+        .ws-helper-popup.active {
+            transform: scale(1);
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        .ws-helper-header {
+            padding: 15px 20px !important;
+        }
+        .ws-helper-history {
+            padding: 15px !important;
+            height: 320px !important;
+            overflow-y: auto !important;
+        }
+        .ws-helper-input-area {
+            padding: 12px 15px !important;
+        }
+    }
+
+    /* =====================================================
+       MOBILE (≤767px) — WIDGET BUTTON + FULL-SCREEN POPUP
+       ===================================================== */
+    @media (max-width: 767px) {
+        body.chat-open {
+            overflow: hidden !important;
+        }
+        body.chat-open .ws-helper-box {
+            display: none !important;
+        }
+        .ws-helper-box,
+        .live-chat-widget {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: 56px !important;
+            height: 56px !important;
+            right: 16px !important;
+            bottom: 30px !important;
+            bottom: calc(30px + env(safe-area-inset-bottom, 0px)) !important;
+            z-index: 999999 !important;
+            position: fixed !important;
+            pointer-events: auto !important;
+        }
+        .ws-helper-box .ws-helper-btn,
+        .live-chat-widget .chat-button {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: 56px !important;
+            height: 56px !important;
+            font-size: 1.4rem !important;
+            -webkit-tap-highlight-color: transparent !important;
+            background: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%) !important;
+            border-radius: 50% !important;
+            position: absolute !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 15px rgba(51, 179, 107, 0.4) !important;
+        }
+        /* FULL-SCREEN mobile popup */
+        .ws-helper-popup {
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100dvh !important;
+            max-width: 100% !important;
+            border-radius: 0 !important;
+            transform: translateY(100%);
+            flex-direction: column;
+            display: flex !important;
+            z-index: 99999 !important;
+        }
+        .ws-helper-popup.active {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        .ws-helper-header {
+            padding: 16px 20px 16px 20px !important;
+            padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 16px 20px !important;
+        }
+        .ws-helper-header .close-helper {
+            font-size: 1.6rem !important;
+            padding: 6px 14px !important;
+            color: #0B0F0C !important;
+        }
+        .ws-helper-history {
+            flex: 1 !important;
+            overflow-y: auto !important;
+            height: auto !important;
+            min-height: 0 !important;
+            padding: 16px !important;
+        }
+        .ws-helper-input-area {
+            padding: 12px 16px 12px !important;
+            padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+        }
+    }
+
+    /* Light mode popup header text white */
+    [data-theme="light"] .ws-helper-header h5,
+    [data-theme="light"] .ws-helper-header-info .bot-icon,
+    [data-theme="light"] .ws-helper-header .close-helper {
+        color: #ffffff !important;
+    }
+    </style>
+    <!-- END LIVE CHAT WIDGET CSS -->
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="{% url 'home:index' %}">
+                <h2 class="text-gradient">WebSuper</h2>
+            </a>
+        </div>
+        <div class="nav-menu-wrapper" id="navMenuWrapper">
+            <div class="nav-links">
+                <a href="{% url 'home:index' %}" class="{% if request.resolver_match.app_name == 'home' %}active{% endif %}">{% trans "Home" %}</a>
+                <a href="{% url 'about:index' %}" class="{% if request.resolver_match.app_name == 'about' %}active{% endif %}">{% trans "About" %}</a>
+                <a href="{% url 'portfolio:index' %}" class="{% if request.resolver_match.app_name == 'portfolio' %}active{% endif %}">{% trans "Portfolio" %}</a>
+                <a href="{% url 'blog:index' %}" class="{% if request.resolver_match.app_name == 'blog' %}active{% endif %}">{% trans "Blog" %}</a>
+                <a href="{% url 'contact:index' %}" class="{% if request.resolver_match.app_name == 'contact' %}active{% endif %}">{% trans "Contact" %}</a>
+            </div>
+            
+            <div class="nav-actions">
+                <!-- Social Icons in Navbar -->
+                <div class="nav-social-icons">
+                    <a href="{{ site_settings.linkedin|default:'#' }}" target="_blank" rel="noopener noreferrer" class="icon-linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="{{ site_settings.whatsapp|default:'#' }}" target="_blank" rel="noopener noreferrer" class="icon-whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="{{ site_settings.instagram|default:'#' }}" target="_blank" rel="noopener noreferrer" class="icon-instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <!-- Custom Premium Language Dropdown -->
+                {% get_current_language as CURRENT_LANGUAGE %}
+                <div class="custom-lang-dropdown" id="customLangDropdown">
+                    <form action="{% url 'set_language' %}" method="post" id="siteLangForm" class="lang-form-hidden">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.path }}">
+                        <input name="language" type="hidden" id="selectedLangInput" value="{{ CURRENT_LANGUAGE }}">
+                    </form>
+
+                    <button type="button" class="lang-btn" id="langDropdownBtn" aria-expanded="false" aria-haspopup="true" title="{% trans 'Dili dəyişdir' %}">
+                        <span class="lang-globe-icon"><i class="fas fa-globe"></i></span>
+                        <span class="lang-current-code">
+                            {% if CURRENT_LANGUAGE == 'az' %}AZ{% elif CURRENT_LANGUAGE == 'en' %}EN{% elif CURRENT_LANGUAGE == 'ru' %}RU{% else %}{{ CURRENT_LANGUAGE|upper }}{% endif %}
+                        </span>
+                        <i class="fas fa-chevron-down lang-chevron"></i>
+                    </button>
+
+                    <div class="lang-menu" id="langMenu" role="menu">
+                        {% get_available_languages as LANGUAGES %}
+                        {% for lang_code, lang_name in LANGUAGES %}
+                        <button type="button" 
+                                class="lang-option {% if lang_code == CURRENT_LANGUAGE %}active{% endif %}" 
+                                data-lang="{{ lang_code }}" 
+                                role="menuitem">
+                            <span class="lang-flag">
+                                {% if lang_code == 'az' %}🇦🇿{% elif lang_code == 'en' %}🇬🇧{% elif lang_code == 'ru' %}🇷🇺{% else %}🌐{% endif %}
+                            </span>
+                            <div class="lang-info">
+                                <span class="lang-name">{{ lang_name }}</span>
+                            </div>
+                            <span class="lang-short">{{ lang_code|upper }}</span>
+                            {% if lang_code == CURRENT_LANGUAGE %}
+                            <i class="fas fa-check lang-check"></i>
+                            {% endif %}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                    <span class="theme-icon-box">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </span>
+                    <span class="theme-text-dark">{% trans "İşıqlı rejim" %}</span>
+                    <span class="theme-text-light">{% trans "Qaranlıq rejim" %}</span>
+                </button>
+            </div>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Mobile Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- 1. Brend -->
+            <div class="footer-col footer-brand-col">
+                <h3 class="text-gradient">WebSuper Agency</h3>
+                <p class="footer-slogan">{% trans "Müasir veb həllər və innovativ dizaynlar." %}</p>
+                <p class="footer-desc">{% trans "Biznesinizi rəqəmsal dünyada inkişaf etdirmək üçün peşəkar komandamızla ən son texnologiyalara əsaslanan kreativ həllər təqdim edirik." %}</p>
+                <div class="footer-socials">
+                    {% if site_settings.linkedin %}<a href="{{ site_settings.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+                    {% if site_settings.instagram %}<a href="{{ site_settings.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>{% endif %}
+                    {% if site_settings.whatsapp %}<a href="{{ site_settings.whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a>{% endif %}
+                </div>
+            </div>
+
+            <!-- 2. Naviqasiya -->
+            <div class="footer-col">
+                <h4>{% trans "Naviqasiya" %}</h4>
+                <ul class="footer-links-list">
+                    <li><a href="{% url 'home:index' %}">{% trans "Ana Səhifə" %}</a></li>
+                    <li><a href="{% url 'about:index' %}">{% trans "Haqqımızda" %}</a></li>
+                    <li><a href="{% url 'portfolio:index' %}">{% trans "Portfolio" %}</a></li>
+                    <li><a href="{% url 'blog:index' %}">{% trans "Blog" %}</a></li>
+                    <li><a href="{% url 'contact:index' %}">{% trans "Əlaqə" %}</a></li>
+                </ul>
+            </div>
+
+            <!-- 3. Xidmətlər -->
+            <div class="footer-col">
+                <h4>{% trans "Xidmətlər" %}</h4>
+                <ul class="footer-links-list">
+                    <li><a href="{% url 'portfolio:index' %}">{% trans "Veb Tətbiqlər" %}</a></li>
+                    <li><a href="{% url 'portfolio:index' %}">{% trans "Mobil Tətbiqlər (iOS/Android)" %}</a></li>
+                    <li><a href="{% url 'portfolio:index' %}">{% trans "UI/UX Dizayn" %}</a></li>
+                    <li><a href="{% url 'portfolio:index' %}">{% trans "Korporativ Kimlik/Brendinq" %}</a></li>
+                    <li><a href="{% url 'portfolio:index' %}">{% trans "SaaS Həlləri" %}</a></li>
+                </ul>
+            </div>
+
+            <!-- 4. Əlaqə -->
+            <div class="footer-col footer-contact-col">
+                <h4>{% trans "Əlaqə" %}</h4>
+                <ul class="footer-contact-list">
+                    <li><i class="fas fa-map-marker-alt"></i> <span>{{ site_settings.address|default:"Baku, Azerbaijan" }}</span></li>
+                    <li><i class="fas fa-phone-alt"></i> <a href="tel:{{ site_settings.phone }}">{{ site_settings.phone|default:"+994 50 000 00 00" }}</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:{{ site_settings.email }}">{{ site_settings.email|default:"info@websuper.az" }}</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
+                &copy; {% now "Y" %} WebSuper Agency. {% trans "Bütün hüquqlar qorunur." %}
+            </div>
+            <div class="footer-bottom-right">
+                <a href="{% url 'home:privacy_policy' %}">{% trans "Privacy Policy" %}</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <!-- Custom Global JS -->
+    <script>
+        // Navbar Scrolled Effect with requestAnimationFrame and passive true
+        let isScrolling = false;
+        window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    const navbar = document.getElementById('navbar');
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        }, { passive: true });
+
+        // Custom Language Dropdown Logic
+        const langDropdown = document.getElementById('customLangDropdown');
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenuWrapper = document.getElementById('navMenuWrapper');
+        const navBackdrop = document.getElementById('navBackdrop');
+
+        function setMobileMenu(open) {
+            mobileMenuBtn?.classList.toggle('active', open);
+            navMenuWrapper?.classList.toggle('active', open);
+            navBackdrop?.classList.toggle('active', open);
+            document.body.classList.toggle('menu-open', open);
+        }
+
+        if (mobileMenuBtn && navMenuWrapper) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isOpen = navMenuWrapper.classList.contains('active');
+                setMobileMenu(!isOpen);
+            });
+        }
+
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', () => {
+                setMobileMenu(false);
+            });
+        }
+
+        // Close mobile menu when a link is clicked
+        const navLinks = navMenuWrapper?.querySelectorAll('.nav-links a');
+        if (navLinks) {
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Remove active from all
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Add active to the clicked one
+                    this.classList.add('active');
+                    
+                    setMobileMenu(false);
+                });
+            });
+        }
+
+        const langBtn = document.getElementById('langDropdownBtn');
+        const langForm = document.getElementById('siteLangForm');
+        const langInput = document.getElementById('selectedLangInput');
+
+        if (langDropdown && langBtn) {
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = langDropdown.classList.toggle('open');
+                langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!langDropdown.contains(e.target)) {
+                    langDropdown.classList.remove('open');
+                    langBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    langDropdown.classList.remove('open');
+                    langBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            langDropdown.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const chosen = opt.getAttribute('data-lang');
+                    if (chosen) {
+                        const currentPath = window.location.pathname;
+                        const langPrefixRegex = /^\/(az|en|ru)(\/.*)?$/;
+                        let targetPath = '/' + chosen + '/';
+                        if (langPrefixRegex.test(currentPath)) {
+                            targetPath = currentPath.replace(langPrefixRegex, '/' + chosen + '$2');
+                        } else {
+                            targetPath = '/' + chosen + (currentPath.startsWith('/') ? currentPath : '/' + currentPath);
+                        }
+                        if (!targetPath.endsWith('/') && !targetPath.includes('.')) {
+                            targetPath += '/';
+                        }
+                        
+                        if (langInput && langForm) {
+                            langInput.value = chosen;
+                            const nextInput = langForm.querySelector('input[name="next"]');
+                            if (nextInput) {
+                                nextInput.value = targetPath + window.location.search;
+                            }
+                            langForm.submit();
+                        } else {
+                            window.location.href = targetPath + window.location.search;
+                        }
+                    }
+                });
+            });
+
+        }
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Check local storage for theme
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            let newTheme = theme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            // Dispatch event for dynamic components like Globe
+            window.dispatchEvent(new Event('themeChanged'));
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Register ScrollTrigger
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+        }
+
+        // Interactive Chatbot Logic
+        function toggleHelper() {
+            const popup = document.getElementById('wsHelperPopup');
+            popup.classList.toggle('active');
+            if (popup.classList.contains('active')) {
+                document.body.classList.add('chat-open');
+                const chatHistory = document.getElementById('wsHelperHistory');
+                if (chatHistory) {
+                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                }
+                const msgInput = document.getElementById('wsHelperMessage');
+                if (msgInput) {
+                    msgInput.focus();
+                }
+            } else {
+                document.body.classList.remove('chat-open');
+            }
+        }
+
+    </script>
+
+    {{ chat_id|json_script:"chat-id" }}
+    {{ chat_history|json_script:"chat-history" }}
+    <script id="chat-config" type="application/json">
+        {
+            "initialMsg": "{% trans 'Salam! Sizə necə kömək edə bilərik?' %}",
+            "placeholderNormal": "{% trans 'Mesajınızı yazın...' %}",
+            "placeholderConnecting": "{% trans 'Bağlanılır...' %}"
+        }
+    </script>
+    <script src="{% static 'js/chat.js' %}?v=2.0"></script>
+    <script src="{% static 'js/parallax.js' %}?v=3.3"></script>
+    {% block extra_js %}{% endblock %}
+
+    <!-- ===========================================================
+         LIVE CHAT WIDGET HTML — LAST element in body so it renders on top.
+         Inline styles here use NO !important so the @media block with
+         !important rules in <head> correctly overrides on mobile.
+         =========================================================== -->
+    <div class="ws-helper-box"
+         style="display:block; visibility:visible; opacity:1; overflow:visible;">
+        <div class="ws-helper-btn" id="wsHelperBtn" onclick="toggleHelper()"
+             style="display:flex; visibility:visible; opacity:1;">
+            <i class="fas fa-comment-dots"></i>
+            <div class="pulse-ring"></div>
+        </div>
+    </div>
+    <div class="ws-helper-popup" id="wsHelperPopup">
+        <div class="ws-helper-header">
+            <div class="ws-helper-header-info">
+                <i class="fas fa-headset bot-icon"></i>
+                <h5>WebSuper Dəstək</h5>
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <button type="button" id="wsNewChatBtn" onclick="startNewChat()" title="Yeni söhbət" style="background: rgba(255,255,255,0.3); border: none; color: #0B0F0C; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 5px; transition: background 0.2s;">
+                    <i class="fas fa-redo"></i> <span>Yeni söhbət</span>
+                </button>
+                <button type="button" class="close-helper" onclick="toggleHelper()" aria-label="{% trans 'Bağla' %}"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div id="wsHelperNameScreen" style="display: none; padding: 20px; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; background: var(--surface);">
+            <h4 style="margin-bottom: 15px; color: var(--text-primary); font-size: 1.1rem;">Salam! Başlamazdan əvvəl adınızı yazın</h4>
+            <input type="text" id="wsCustomerNameInput" placeholder="Ad və soyad" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color, #e0e0e0); background: transparent; color: var(--text-primary, #222); margin-bottom: 5px; font-size: 0.95rem; outline: none;">
+            <div id="wsNameError" style="color: #ff4757; font-size: 13px; margin-bottom: 15px; min-height: 18px; visibility: hidden;">Zəhmət olmasa adınızı və soyadınızı yazın</div>
+            <button type="button" id="wsStartChatBtn" style="background: linear-gradient(135deg, #EFF25A 0%, #33B36B 100%); border: none; padding: 12px 20px; border-radius: 20px; color: #0B0F0C; font-weight: bold; cursor: pointer; width: 100%; transition: transform 0.2s;">Söhbətə başla</button>
+        </div>
+        <div id="wsHelperChatArea" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
+            <div class="ws-helper-history" id="wsHelperHistory"></div>
+            <div class="ws-helper-input-area">
+                <form id="wsHelperForm" autocomplete="off">
+                    <input type="text" id="wsHelperMessage" placeholder="{% trans 'Mesajınızı yazın...' %}" required>
+                    <button type="submit" class="ws-helper-submit-btn" aria-label="{% trans 'Göndər' %}"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END LIVE CHAT WIDGET HTML -->
+</body>
+</html>

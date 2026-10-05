@@ -1,0 +1,577 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WebSuper 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 00:00+0400\n"
+"PO-Revision-Date: 2026-09-22 00:00+0400\n"
+"Last-Translator: Antigravity <info@websuper.az>\n"
+"Language-Team: ru\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home"
+msgstr "Главная"
+
+msgid "About"
+msgstr "О нас"
+
+msgid "Portfolio"
+msgstr "Портфолио"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Contact"
+msgstr "Контакты"
+
+msgid "Müasir veb həllər və innovativ dizaynlar."
+msgstr "Современные веб-решения и инновационный дизайн."
+
+msgid "Bütün hüquqlar qorunur."
+msgstr "Все права защищены."
+
+msgid "Dili dəyişdir"
+msgstr "Изменить язык"
+
+msgid "Ana Səhifə"
+msgstr "Главная"
+
+msgid "Haqqımızda"
+msgstr "О нас"
+
+msgid "Əlaqə"
+msgstr "Контакты"
+
+msgid "Bizimlə"
+msgstr "Свяжитесь"
+
+msgid "Bizi İfadə Edən"
+msgstr "Наши"
+
+msgid "İşlər"
+msgstr "Работы"
+
+msgid "Rəqəmsal"
+msgstr "Цифровой"
+
+msgid "Telefon"
+msgstr "Телефон"
+
+msgid "Email"
+msgstr "Эл. почта"
+
+msgid "Ünvan"
+msgstr "Адрес"
+
+msgid "Mesaj Göndərin"
+msgstr "Отправьте сообщение"
+
+msgid "Hər hansı bir sualınız və ya layihəniz varsa, bizə yazın."
+msgstr "Если у вас есть вопросы или проект, напишите нам."
+
+msgid "Göndər"
+msgstr "Отправить"
+
+msgid "Adınız və Soyadınız"
+msgstr "Ваше имя и фамилия"
+
+msgid "Email ünvanınız"
+msgstr "Ваш адрес эл. почты"
+
+msgid "Telefon nömrəniz"
+msgstr "Номер телефона"
+
+msgid "Mövzu"
+msgstr "Тема"
+
+msgid "Mesajınız"
+msgstr "Ваше сообщение"
+
+msgid "Zəhmət olmasa, bütün mütləq sahələri doldurun."
+msgstr "Пожалуйста, заполните все обязательные поля."
+
+msgid "Bizim"
+msgstr "Наша"
+
+msgid "Hekayəmiz"
+msgstr "История"
+
+msgid ""
+"WebSuper Agency olaraq biznesləri rəqəmsallaşdırmaq və onlara bazarda "
+"rəqabət üstünlüyü qazandırmaq məqsədilə fəaliyyətə başladıq. Biz sadəcə kod "
+"yazmırıq, istifadəçilərinizi heyran edəcək vizual təcrübələr və etibarlı "
+"həllər yaradırıq."
+msgstr ""
+"Как WebSuper Agency, мы начали свою деятельность с целью цифровизации "
+"бизнеса и предоставления конкурентных преимуществ. Мы не просто пишем код — "
+"мы создаем потрясающие визуальные впечатления и надежные решения."
+
+msgid ""
+"Missiyamız hər bir müştərinin brend dəyərini artırmaq və innovativ "
+"texnologiyalarla onlara dəstək olmaqdır."
+msgstr ""
+"Наша миссия — повышать ценность бренда каждого клиента и поддерживать его с "
+"помощью инновационных технологий."
+
+msgid "Dəyərlərimiz"
+msgstr "Наши ценности"
+
+msgid "Bizi fərqləndirən əsas prinsiplər."
+msgstr "Ключевые принципы, которые нас выделяют."
+
+msgid "İnnovasiya"
+msgstr "Инновации"
+
+msgid "Daim yeni texnologiyalar axtarır və tətbiq edirik."
+msgstr "Мы постоянно исследуем и внедряем новые технологии."
+
+msgid "Etibarlılıq"
+msgstr "Надежность"
+
+msgid "Verdiyimiz sözlərin arxasında dayanırıq."
+msgstr "Мы неизменно держим слово и выполняем обязательства."
+
+msgid "Keyfiyyət"
+msgstr "Качество"
+
+msgid "Hər detalda mükəmməlliyə can atırıq."
+msgstr "Мы стремимся к совершенству в каждой детали."
+
+msgid "Peşəkar"
+msgstr "Профессиональная"
+
+msgid "Komandamız"
+msgstr "Команда"
+
+msgid "Layihələrinizi həyata keçirən istedadlı şəxslər."
+msgstr "Талантливые специалисты, воплощающие ваши проекты в жизнь."
+
+msgid "Təcrübə"
+msgstr "Опыт"
+
+msgid "Bacarıqlar"
+msgstr "Навыки"
+
+msgid "Layihələr"
+msgstr "Проекты"
+
+msgid "il"
+msgstr "лет"
+
+msgid "Məlumat yoxdur"
+msgstr "Нет информации"
+
+msgid "Haqqında ətraflı məlumat yoxdur."
+msgstr "Подробная информация отсутствует."
+
+msgid "Hamısı"
+msgstr "Все"
+
+msgid "Bax"
+msgstr "Смотреть"
+
+msgid "Ətraflı bax"
+msgstr "Подробнее"
+
+msgid "Layihə"
+msgstr "Проект"
+
+msgid "Texnologiya"
+msgstr "Технологии"
+
+msgid "Tarix"
+msgstr "Дата"
+
+msgid "Layihə Haqqında"
+msgstr "О проекте"
+
+msgid "Layihə haqqında məlumat yoxdur."
+msgstr "Информация о проекте отсутствует."
+
+msgid "Problem"
+msgstr "Проблема"
+
+msgid "Həll Yolu"
+msgstr "Решение"
+
+msgid "Oxu"
+msgstr "Читать"
+
+msgid "Hələ heç bir blog əlavə olunmayıb"
+msgstr "Пока нет статей в блоге"
+
+msgid "Tezliklə yeni məqalələrimiz burada yer alacaq."
+msgstr "Скоро здесь появятся новые публикации."
+
+msgid "Əvvəlki"
+msgstr "Предыдущая"
+
+msgid "Sonrakı"
+msgstr "Следующая"
+
+msgid "Müəllif"
+msgstr "Автор"
+
+msgid "WebSuper Agency mütəxəssisi"
+msgstr "Специалист WebSuper Agency"
+
+msgid "Təsadüfi Bloglar"
+msgstr "Рекомендуемые статьи"
+
+msgid "Kateqoriyalar"
+msgstr "Категории"
+
+msgid "Populyar Teqlər"
+msgstr "Популярные теги"
+
+msgid "Hələ də veb saytınız yoxdur? Dayanmayın!"
+msgstr "Все еще нет веб-сайта? Не ждите!"
+
+msgid "Əlaqə Saxla"
+msgstr "Связаться"
+
+msgid "Ətraflı Bax"
+msgstr "Подробнее"
+
+msgid "Müştəri"
+msgstr "Клиентов"
+
+msgid "İl Təcrübə"
+msgstr "Лет опыта"
+
+msgid "Dəstək"
+msgstr "Поддержка"
+
+msgid "Xidmətlərimiz"
+msgstr "Наши услуги"
+
+msgid "Biznesinizin inkişafı üçün tam əhatəli rəqəmsal həllər."
+msgstr "Комплексные цифровые решения для роста вашего бизнеса."
+
+msgid "Veb Development"
+msgstr "Веб-разработка"
+
+msgid "Müasir, sürətli və istifadəçi dostu veb saytların yaradılması."
+msgstr "Создание современных, быстрых и удобных сайтов."
+
+msgid "Mobil Tətbiqlər"
+msgstr "Мобильные приложения"
+
+msgid "iOS və Android üçün nativ və çarpaz platformalı tətbiqlər."
+msgstr "Нативные и кроссплатформенные приложения для iOS и Android."
+
+msgid "UI/UX Dizayn"
+msgstr "UI/UX Дизайн"
+
+msgid "Müştəriləri cəlb edən \"wow\" effektli, funksional dizaynlar."
+msgstr "Функциональный дизайн с вау-эффектом, привлекающий клиентов."
+
+msgid "İş Prosesimiz"
+msgstr "Наш процесс"
+
+msgid "İdeyanızdan real məhsula gedən mükəmməl yol."
+msgstr "Идеальный путь от вашей идеи до реального продукта."
+
+msgid "Kəşfiyyat"
+msgstr "Исследование"
+
+msgid "Biznes ehtiyaclarınızı və hədəflərinizi öyrənirik."
+msgstr "Мы глубоко изучаем потребности и цели вашего бизнеса."
+
+msgid "Dizayn"
+msgstr "Дизайн"
+
+msgid "İstifadəçi təcrübəsini əsas alaraq interfeyslər yaradırıq."
+msgstr "Создаем интуитивные интерфейсы с упором на опыт пользователей."
+
+msgid "Development"
+msgstr "Разработка"
+
+msgid "Ən son texnologiyalarla kodlaşdırma prosesi aparılır."
+msgstr "Надежное программирование с использованием новейших технологий."
+
+msgid "Təhvil & Dəstək"
+msgstr "Сдача и поддержка"
+
+msgid "Məhsulu təhvil verib daimi texniki dəstək göstəririk."
+msgstr "Запускаем продукт и обеспечиваем круглосуточную поддержку."
+
+msgid "Son Yazılarımız"
+msgstr "Последние статьи"
+
+msgid "Blogumuzdan sənaye xəbərləri və faydalı məlumatlar."
+msgstr "Новости индустрии и полезные статьи из нашего блога."
+
+msgid "Veb saytlarda animasiyanın rolu"
+msgstr "Роль анимации в современных веб-сайтах"
+
+msgid "2026-cı ilin UI/UX trendləri"
+msgstr "Главные тренды UI/UX 2026 года"
+
+msgid "Django ilə təhlükəsizlik qaydaları"
+msgstr "Правила безопасности веб-приложений на Django"
+
+msgid "Qiymətlərimiz"
+msgstr "Тарифные планы"
+
+msgid "Ehtiyaclarınıza və büdcənizə uyğun ideal paketi seçin."
+msgstr "Выберите идеальный пакет в соответствии с вашими потребностями."
+
+msgid "Ən Populyar"
+msgstr "Самый популярный"
+
+msgid "Sifariş Ver"
+msgstr "Заказать"
+
+msgid "Başlanğıc"
+msgstr "Стартовый"
+
+msgid "AZN-dən"
+msgstr "от AZN"
+
+msgid "Kiçik bizneslər və startaplar üçün ideal seçim."
+msgstr "Идеальный выбор для малого бизнеса и стартапов."
+
+msgid "Standart"
+msgstr "Стандартный"
+
+msgid "Korporativ şirkətlər üçün tam funksional həll."
+msgstr "Полнофункциональное решение для корпоративных компаний."
+
+msgid "Premium"
+msgstr "Премиум"
+
+msgid "Genişmiqyaslı və xüsusi e-ticarət/platforma həlləri."
+msgstr "Масштабные решения для электронной коммерции и сложных платформ."
+
+msgid "Layihənizi Bu Gün Başladaq"
+msgstr "Начнем ваш проект сегодня"
+
+msgid "Peşəkar komandamızla birlikdə biznesinizi rəqəmsal zirvəyə qaldırın."
+msgstr "Поднимите свой бизнес на цифровую вершину вместе с нашей командой."
+
+msgid "Bizimlə Əlaqə"
+msgstr "Связаться с нами"
+
+msgid "Privacy Policy"
+msgstr "Политика конфиденциальности"
+
+msgid "Last updated"
+msgstr "Последнее обновление"
+
+msgid "Introduction"
+msgstr "Введение"
+
+msgid ""
+"Welcome to WebSuper Agency. We respect your privacy and are committed to "
+"protecting your personal data. This privacy policy will inform you as to how"
+" we look after your personal data when you visit our website."
+msgstr ""
+"Добро пожаловать в WebSuper Agency. Мы уважаем вашу конфиденциальность и "
+"обязуемся защищать ваши личные данные. Эта политика конфиденциальности "
+"сообщит вам о том, как мы заботимся о ваших личных данных при посещении "
+"нашего сайта."
+
+msgid "The data we collect about you"
+msgstr "Данные, которые мы собираем о вас"
+
+msgid ""
+"We may collect, use, store and transfer different kinds of personal data "
+"about you, including Identity Data (first name, last name), Contact Data "
+"(email address, telephone numbers), and Technical Data (IP address, browser "
+"type and version)."
+msgstr ""
+"Мы можем собирать, использовать, хранить и передавать различные виды ваших "
+"личных данных, включая идентификационные данные (имя, фамилия), контактные "
+"данные (адрес электронной почты, номера телефонов) и технические данные (IP-"
+"адрес, тип и версия браузера)."
+
+msgid "How we use your personal data"
+msgstr "Как мы используем ваши личные данные"
+
+msgid ""
+"We will only use your personal data when the law allows us to. Most "
+"commonly, we will use your personal data to provide our services, to manage "
+"our relationship with you, or to improve our website."
+msgstr ""
+"Мы будем использовать ваши личные данные только в тех случаях, когда это "
+"разрешено законом. Чаще всего мы будем использовать ваши личные данные для "
+"предоставления наших услуг, управления нашими отношениями с вами или "
+"улучшения нашего сайта."
+
+msgid "Contact us"
+msgstr "Свяжитесь с нами"
+
+msgid ""
+"If you have any questions about this privacy policy or our privacy "
+"practices, please contact us."
+msgstr ""
+"Если у вас есть какие-либо вопросы относительно этой политики "
+"конфиденциальности или нашей практики конфиденциальности, пожалуйста, "
+"свяжитесь с нами."
+
+msgid ""
+"Biznesinizi rəqəmsal dünyada inkişaf etdirmək üçün peşəkar komandamızla ən "
+"son texnologiyalara əsaslanan kreativ həllər təqdim edirik."
+msgstr ""
+"Мы предлагаем креативные решения на основе новейших технологий с нашей "
+"профессиональной командой для развития вашего бизнеса в цифровом мире."
+
+msgid "Naviqasiya"
+msgstr "Навигация"
+
+msgid "Xidmətlər"
+msgstr "Услуги"
+
+msgid "Veb Tətbiqlər"
+msgstr "Веб-приложения"
+
+msgid "Mobil Tətbiqlər (iOS/Android)"
+msgstr "Мобильные приложения (iOS/Android)"
+
+msgid "Korporativ Kimlik/Brendinq"
+msgstr "Корпоративный стиль/Брендинг"
+
+msgid "SaaS Həlləri"
+msgstr "SaaS решения"
+
+msgid "Əsas Hero Başlığı"
+msgstr "Главный заголовок Hero"
+
+msgid "Ana Səhifə Hero Bölməsi"
+msgstr "Раздел Hero главной страницы"
+
+msgid "Xidmət"
+msgstr "Услуга"
+
+msgid "Xidmətlərimiz Bölməsi (3 Əsas Kart)"
+msgstr "Раздел 'Наши услуги' (3 основные карточки)"
+
+msgid "İş Prosesi Mərhələsi"
+msgstr "Этап рабочего процесса"
+
+msgid "İş Prosesimiz Mərhələləri (1, 2, 3, 4)"
+msgstr "Этапы рабочего процесса (1, 2, 3, 4)"
+
+msgid "Son CTA Bölməsi"
+msgstr "Финальный раздел CTA"
+
+msgid "Son CTA Bölməsi (Layihənizi Başladaq)"
+msgstr "Финальный раздел CTA (Начнем ваш проект)"
+
+msgid "Qiymət Paketi"
+msgstr "Тарифный план"
+
+msgid "Qiymət Paketləri (Tariflər)"
+msgstr "Тарифные планы (Цены)"
+
+msgid "Statistika Rəqəmi"
+msgstr "Показатель статистики"
+
+msgid "Statistika Bloku (150+, 50+ və s.)"
+msgstr "Блок статистики (150+, 50+ и др.)"
+
+msgid "Ana Səhifə Slaydı"
+msgstr "Слайд главной страницы"
+
+msgid "Ana Səhifə Slayderi"
+msgstr "Слайдер главной страницы"
+
+msgid "Sayt Əlaqə & Sosial Media Tənzimləmələri"
+msgstr "Настройки контактов и соцсетей сайта"
+
+msgid "Sayt Ümumi Tənzimləmələri"
+msgstr "Общие настройки сайта"
+
+msgid "Haqqımızda Məzmunu"
+msgstr "Содержимое 'О нас'"
+
+msgid "Haqqımızda Bölməsi"
+msgstr "Раздел 'О нас'"
+
+msgid "Komanda Üzvü"
+msgstr "Член команды"
+
+msgid "Komanda Üzvləri (Haqqımızda/Ana Səhifə)"
+msgstr "Члены команды (О нас/Главная)"
+
+msgid "Dəyər"
+msgstr "Ценность"
+
+msgid "Dəyərlərimiz (Haqqımızda)"
+msgstr "Наши ценности (О нас)"
+
+msgid "Layihə Kateqoriyası"
+msgstr "Категория проекта"
+
+msgid "Layihə Kateqoriyaları"
+msgstr "Категории проектов"
+
+msgid "Portfolio Layihəsi"
+msgstr "Проект портфолио"
+
+msgid "Portfolio Layihələri"
+msgstr "Проекты портфолио"
+
+msgid "Layihə Qalereya Şəkili"
+msgstr "Изображение галереи проекта"
+
+msgid "Layihə Qalereyası Şəkilləri"
+msgstr "Изображения галереи проекта"
+
+msgid "Məqalə Kateqoriyası"
+msgstr "Категория статьи"
+
+msgid "Məqalə Kateqoriyaları"
+msgstr "Категории статей"
+
+msgid "Teq"
+msgstr "Тег"
+
+msgid "Teqlər"
+msgstr "Теги"
+
+msgid "Məqalə"
+msgstr "Статья"
+
+msgid "Blog Məqalələri"
+msgstr "Статьи блога"
+
+msgid "Gələn Mesaj"
+msgstr "Входящее сообщение"
+
+msgid "Gələn Mesajlar (Əlaqə Formu)"
+msgstr "Входящие сообщения (Форма связи)"
+
+msgid "Ümumi Əlaqə"
+msgstr "Общие контакты"
+
+msgid "Sosial Şəbəkələr (Header & Footer)"
+msgstr "Социальные сети (Шапка и подвал)"
+
+msgid "Arxa Fon Şəkilləri (Hero Bölməsi)"
+msgstr "Фоновые изображения (Раздел Hero)"
+
+msgid "Ana Səhifə Arxa Fon Şəkilləri"
+msgstr "Фоновые изображения главной страницы"
+
+msgid "Müştəri Məlumatları"
+msgstr "Информация о клиенте"
+
+msgid "Mesajın Məzmunu"
+msgstr "Содержимое сообщения"
+
+msgid "Status və Tarix"
+msgstr "Статус и дата"
+
+msgid "Müraciət göndərən şəxsin əlaqə vasitələri"
+msgstr "Контактные данные отправителя"
+
+msgid "Göndərilən müraciət mövzusu və ətraflı mətn"
+msgstr "Тема обращения и подробный текст"
+
+msgid "Mesajın oxunma vəziyyəti və qəbul edilmə vaxtı"
+msgstr "Статус прочтения и время получения"

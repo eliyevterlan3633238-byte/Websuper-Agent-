@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Haqqımızda" %} - WebSuper Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}?v=1.3">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header parallax-bg" id="aboutHeader" style="background-image: url('{% if site_settings.about_hero_image %}{{ site_settings.about_hero_image.url }}{% else %}https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80{% endif %}');">
+    <div class="header-overlay"></div>
+    <div class="header-content" data-aos="fade-up">
+        <h1>{% trans "Haqqımızda" %}</h1>
+        <div class="breadcrumb">
+            
+        </div>
+    </div>
+</div>
+
+<!-- History & Mission -->
+<section class="history-section">
+    <div class="history-grid">
+        <div class="history-text" data-aos="fade-right">
+            <h2>{{ about.heading|default:"Bizim" }} {% if about.subheading %}<span class="text-gradient">{{ about.subheading }}</span>{% else %}<span class="text-gradient">{% trans "Hekayəmiz" %}</span>{% endif %}</h2>
+            <p>{{ about.description|default:"WebSuper Agency olaraq biznesləri rəqəmsallaşdırmaq və onlara bazarda rəqabət üstünlüyü qazandırmaq məqsədilə fəaliyyətə başladıq. Biz sadəcə kod yazmırıq, istifadəçilərinizi heyran edəcək vizual təcrübələr və etibarlı həllər yaradırıq."|linebreaksbr }}</p>
+            {% if about.mission %}
+            <p>{{ about.mission|linebreaksbr }}</p>
+            {% endif %}
+        </div>
+        <div class="history-image parallax-float" data-depth="0.14" data-aos="fade-left">
+            <img src="{% if about.image %}{{ about.image.url }}{% else %}https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80{% endif %}" alt="Komanda işi" class="tilt-card">
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="section-title text-center" data-aos="fade-up">
+        <h2>{% trans "Dəyərlərimiz" %}</h2>
+        <p>{% trans "Bizi fərqləndirən əsas prinsiplər." %}</p>
+    </div>
+    <div class="values-grid">
+        {% if values %}
+            {% for val in values %}
+            <div class="value-wrapper">
+                <div class="value-card tilt-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                    <div class="value-icon"><i class="{{ val.icon }}"></i></div>
+                    <h3>{{ val.title }}</h3>
+                    <p>{{ val.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- Dummy Values -->
+            <div class="value-wrapper">
+                <div class="value-card tilt-card" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>{% trans "İnnovasiya" %}</h3>
+                    <p>{% trans "Daim yeni texnologiyalar axtarır və tətbiq edirik." %}</p>
+                </div>
+            </div>
+            <div class="value-wrapper">
+                <div class="value-card tilt-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>{% trans "Etibarlılıq" %}</h3>
+                    <p>{% trans "Verdiyimiz sözlərin arxasında dayanırıq." %}</p>
+                </div>
+            </div>
+            <div class="value-wrapper">
+                <div class="value-card tilt-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="value-icon"><i class="fas fa-gem"></i></div>
+                    <h3>{% trans "Keyfiyyət" %}</h3>
+                    <p>{% trans "Hər detalda mükəmməlliyə can atırıq." %}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="section-title text-center" data-aos="fade-up" style="margin-bottom: 50px;">
+        <h2>{% trans "Peşəkar" %} <span class="text-gradient">{% trans "Komandamız" %}</span></h2>
+        <p>{% trans "Layihələrinizi həyata keçirən istedadlı şəxslər." %}</p>
+    </div>
+    <div class="swiper team-swiper" data-aos="fade-up">
+        <div class="swiper-wrapper">
+        {% if team %}
+            {% for member in team %}
+            <div class="swiper-slide">
+                <div class="team-card tilt-card" data-delay="{{ forloop.counter0|add:1 }}00" onclick="openTeamModal(this)"
+                    data-name="{{ member.name }}"
+                    data-role="{{ member.role }}"
+                    data-bio="{{ member.bio|escape }}"
+                    data-image="{% if member.image %}{{ member.image.url }}{% elif forloop.counter == 1 %}https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80{% elif forloop.counter == 2 %}https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80{% else %}https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80{% endif %}"
+                    data-experience="{{ member.experience_years|default:'0' }}"
+                    data-skills="{% if member.skills %}{{ member.skills|escape }}{% endif %}"
+                    data-projects="{% if member.projects %}{{ member.projects|escape }}{% endif %}">
+                    <img src="{% if member.image %}{{ member.image.url }}{% elif forloop.counter == 1 %}https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80{% elif forloop.counter == 2 %}https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80{% else %}https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80{% endif %}" alt="{{ member.name }}">
+                    <div class="team-info">
+                        <h3>{{ member.name }}</h3>
+                        <p class="role-text">{{ member.role }}</p>
+                        <div class="team-skills-container">
+                            <span class="skills-label">{% trans "Bacarıqlar:" %}</span>
+                            <div class="team-skills js-skills-container" data-skills="{% if member.skills %}{{ member.skills }}{% endif %}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- Dummy Team Members -->
+            <div class="swiper-slide">
+                <div class="team-card tilt-card" onclick="openTeamModal(this)"
+                    data-name="John Doe"
+                    data-role="CEO & Founder"
+                    data-bio="John has over 10 years of experience in web development and leads our agency with vision and passion."
+                    data-image="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                    data-experience="10"
+                    data-skills="Liderlik, Veb İnkişafı, Biznes Strategiyası, SEO, PR"
+                    data-projects="Global E-ticarət Platforması, Tech Startup Süni İntellekt İnteqrasiyası">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team">
+                    <div class="team-info">
+                        <h3>John Doe</h3>
+                        <p class="role-text">CEO & Founder</p>
+                        <div class="team-skills-container">
+                            <span class="skills-label">{% trans "Bacarıqlar:" %}</span>
+                            <div class="team-skills js-skills-container" data-skills="Liderlik, Veb İnkişafı, Biznes Strategiyası, SEO, PR"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="team-card tilt-card" onclick="openTeamModal(this)"
+                    data-name="Jane Smith"
+                    data-role="Lead Designer"
+                    data-bio="Jane is a creative genius who crafts visually stunning user interfaces and experiences."
+                    data-image="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                    data-experience="8"
+                    data-skills="UI/UX Dizayn, Figma, İstifadəçi Təcrübəsi, Adobe XD, Photoshop"
+                    data-projects="Milli Bank Mobil Tətbiqi UI dizaynı, Sağlamlıq Portalı vizual yenilənməsi">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team">
+                    <div class="team-info">
+                        <h3>Jane Smith</h3>
+                        <p class="role-text">Lead Designer</p>
+                        <div class="team-skills-container">
+                            <span class="skills-label">{% trans "Bacarıqlar:" %}</span>
+                            <div class="team-skills js-skills-container" data-skills="UI/UX Dizayn, Figma, İstifadəçi Təcrübəsi, Adobe XD, Photoshop"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="team-card tilt-card" onclick="openTeamModal(this)"
+                    data-name="Mike Johnson"
+                    data-role="Senior Developer"
+                    data-bio="Mike specializes in building robust and scalable backend systems to power our applications."
+                    data-image="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                    data-experience="6"
+                    data-skills="Python, Django, PostgreSQL, API İnkişafı, Docker, AWS"
+                    data-projects="Böyük Həcmli Məlumat Analizi Sistemi, CRM İnteqrasiyaları">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team">
+                    <div class="team-info">
+                        <h3>Mike Johnson</h3>
+                        <p class="role-text">Senior Developer</p>
+                        <div class="team-skills-container">
+                            <span class="skills-label">{% trans "Bacarıqlar:" %}</span>
+                            <div class="team-skills js-skills-container" data-skills="Python, Django, PostgreSQL, API İnkişafı, Docker, AWS"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="team-card tilt-card" onclick="openTeamModal(this)"
+                    data-name="Alice Williams"
+                    data-role="Frontend Engineer"
+                    data-bio="Alice builds responsive and interactive user interfaces using modern web technologies."
+                    data-image="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                    data-experience="5"
+                    data-skills="JavaScript, React, Vue.js, HTML, CSS, TailwindCSS"
+                    data-projects="E-commerce Frontend, Dashboard UI">
+                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team">
+                    <div class="team-info">
+                        <h3>Alice Williams</h3>
+                        <p class="role-text">Frontend Engineer</p>
+                        <div class="team-skills-container">
+                            <span class="skills-label">{% trans "Bacarıqlar:" %}</span>
+                            <div class="team-skills js-skills-container" data-skills="JavaScript, React, Vue.js, HTML, CSS, TailwindCSS"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>
+
+<!-- Team Modal -->
+<div class="team-modal-overlay" id="teamModalOverlay">
+    <div class="team-modal">
+        <i class="fas fa-times team-modal-close" onclick="closeTeamModal()"></i>
+        <img src="" alt="" class="team-modal-img" id="modalImage">
+        <h3 id="modalName">Name</h3>
+        <p class="role" id="modalRole">Role</p>
+        <p class="bio" id="modalBio"></p>
+        <div class="team-modal-details" id="modalDetails">
+            <h4>{% trans "Təcrübə" %}</h4>
+            <p id="modalExperience">0 il</p>
+            <h4>{% trans "Bacarıqlar" %}</h4>
+            <p id="modalSkills">-</p>
+            <h4>{% trans "Layihələr" %}</h4>
+            <p id="modalProjects">-</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Format skills on load
+    document.addEventListener('DOMContentLoaded', function() {
+        const skillContainers = document.querySelectorAll('.js-skills-container');
+        skillContainers.forEach(container => {
+            const skillsData = container.getAttribute('data-skills');
+            if (skillsData && skillsData !== 'None' && skillsData.trim() !== '') {
+                const skillsList = skillsData.split(',').map(s => s.trim()).filter(s => s !== '');
+                const topSkills = skillsList.slice(0, 3);
+                const remainingCount = skillsList.length - 3;
+                
+                topSkills.forEach(skill => {
+                    const badge = document.createElement('span');
+                    badge.className = 'skill-badge';
+                    badge.textContent = skill;
+                    container.appendChild(badge);
+                });
+                
+                if (remainingCount > 0) {
+                    const moreBadge = document.createElement('span');
+                    moreBadge.className = 'skill-badge more-badge';
+                    moreBadge.textContent = '+' + remainingCount;
+                    container.appendChild(moreBadge);
+                }
+            }
+        });
+
+        // Initialize Swiper
+        const teamSlidesEl = document.querySelectorAll('.team-swiper .swiper-slide');
+        const teamSwiper = new Swiper('.team-swiper', {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+            spaceBetween: 20,
+            loop: teamSlidesEl.length >= 6,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            pagination: {
+                el: '.team-swiper .swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.team-swiper .swiper-button-next',
+                prevEl: '.team-swiper .swiper-button-prev',
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    slidesPerGroup: 2,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    slidesPerGroup: 2,
+                    spaceBetween: 30,
+                }
+            }
+        });
+
+        // Reliable click and tap handling via Swiper event
+        teamSwiper.on('click', function(swiper, e) {
+            const card = e.target ? e.target.closest('.team-card') : null;
+            if (card) {
+                openTeamModal(card);
+            }
+        });
+
+        // Also add delegated click listener on container
+        const swiperContainer = document.querySelector('.team-swiper');
+        if (swiperContainer) {
+            swiperContainer.addEventListener('click', function(e) {
+                const card = e.target.closest('.team-card');
+                if (card) {
+                    openTeamModal(card);
+                }
+            });
+        }
+    });
+
+    // Team Modal Logic
+    function openTeamModal(element) {
+        if (!element) return;
+        const name = element.getAttribute('data-name');
+        const role = element.getAttribute('data-role');
+        const bio = element.getAttribute('data-bio');
+        let image = element.getAttribute('data-image');
+        if (!image) {
+            const imgEl = element.querySelector('img');
+            if (imgEl) image = imgEl.src;
+        }
+        const experience = element.getAttribute('data-experience');
+        const skills = element.getAttribute('data-skills');
+        const projects = element.getAttribute('data-projects');
+
+        const modalName = document.getElementById('modalName');
+        const modalRole = document.getElementById('modalRole');
+        const modalBio = document.getElementById('modalBio');
+        const modalImage = document.getElementById('modalImage');
+        const modalExperience = document.getElementById('modalExperience');
+        const modalSkills = document.getElementById('modalSkills');
+        const modalProjects = document.getElementById('modalProjects');
+        const modalOverlay = document.getElementById('teamModalOverlay');
+
+        if (modalName) modalName.textContent = name || '';
+        if (modalRole) modalRole.textContent = role || '';
+        if (modalBio) modalBio.textContent = bio && bio !== 'None' ? bio : "{% trans 'Haqqında ətraflı məlumat yoxdur.' %}";
+        if (modalImage && image) modalImage.src = image;
+
+        if (modalExperience) modalExperience.textContent = experience ? experience + " {% trans 'il' %}" : "{% trans 'Məlumat yoxdur' %}";
+        if (modalSkills) modalSkills.textContent = skills && skills !== 'None' ? skills : "{% trans 'Məlumat yoxdur' %}";
+        if (modalProjects) modalProjects.textContent = projects && projects !== 'None' ? projects : "{% trans 'Məlumat yoxdur' %}";
+
+        if (modalOverlay) {
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeTeamModal() {
+        const modalOverlay = document.getElementById('teamModalOverlay');
+        if (modalOverlay) {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    const modalOverlay = document.getElementById('teamModalOverlay');
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTeamModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeTeamModal();
+        }
+    });
+</script>
+{% endblock %}

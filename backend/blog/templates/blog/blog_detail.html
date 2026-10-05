@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ post.title }} - WebSuper Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Post Header -->
+<div class="post-header parallax-bg" style="background-image: linear-gradient(rgba(11, 15, 12, 0.7), rgba(11, 15, 12, 0.9)), url('{{ post.cover_image.url }}');">
+    <div class="header-content" data-aos="fade-up">
+        {% if post.category %}
+        <span class="category-badge mb-3">{{ post.category.name }}</span>
+        {% endif %}
+        <h1>{{ post.title }}</h1>
+
+    </div>
+</div>
+
+<!-- Post Content Section -->
+<section class="post-content-section">
+    <div class="post-container">
+        
+        <div class="main-content" data-aos="fade-up">
+            <!-- Info Box for Excerpt -->
+            <div class="info-box" style="background: rgba(51, 179, 107, 0.1); border-left: 4px solid var(--primary-end); padding: 20px; border-radius: 5px; margin-bottom: 30px;">
+                <p style="margin: 0; font-size: 1.1rem; color: var(--text-primary); font-weight: 500;">
+                    {{ post.excerpt }}
+                </p>
+            </div>
+
+            <div class="content-body" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-primary);">
+                {{ post.content|safe }}
+            </div>
+
+
+        </div>
+
+        <aside class="post-sidebar" data-aos="fade-left">
+            <div class="sidebar-widget">
+                <h3>{% trans "Müəllif" %}</h3>
+                <div class="author-info">
+                    <div class="author-avatar"><i class="fas fa-user-circle"></i></div>
+                    <div>
+                        <h4>{{ post.author.username }}</h4>
+                        <p>{% trans "WebSuper Agency mütəxəssisi" %}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if similar_posts %}
+            <div class="sidebar-widget">
+                <h3>{% trans "Təsadüfi Bloglar" %}</h3>
+                <div class="random-posts mt-3">
+                    {% for rp in similar_posts %}
+                    <div class="random-post-item" style="display: flex; gap: 15px; margin-bottom: 15px; align-items: center;" onclick="window.location.href='{% url 'blog:detail' rp.slug %}'">
+                        <img src="{{ rp.cover_image.url }}" alt="{{ rp.title }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px; cursor: pointer; flex-shrink: 0;">
+                        <div>
+                            <h4 style="font-size: 1rem; margin-bottom: 5px; cursor: pointer;"><a href="{% url 'blog:detail' rp.slug %}">{{ rp.title }}</a></h4>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if categories %}
+            <div class="sidebar-widget">
+                <h3>{% trans "Kateqoriyalar" %}</h3>
+                <ul class="category-list mt-3" style="list-style: none; padding: 0;">
+                    {% for cat in categories %}
+                    <li style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                        <a href="{% url 'blog:index' %}?category={{ cat.slug }}" style="display: flex; justify-content: space-between; align-items: center; color: var(--text-primary); transition: color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-primary)'">
+                            {{ cat.name }} <span>({{ cat.posts.count }})</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if tags %}
+            <div class="sidebar-widget">
+                <h3>{% trans "Populyar Teqlər" %}</h3>
+                <div class="tags-container mt-3" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    {% for tag in tags %}
+                    <a href="{% url 'blog:index' %}?tag={{ tag.slug }}" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">#{{ tag.name|default:tag.slug }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+        </aside>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+</script>
+{% endblock %}

@@ -1,0 +1,701 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Ana Səhifə" %} - WebSuper Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}?v=2.8">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <!-- Particles overlay -->
+    <div id="particles-js" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 2; pointer-events: none;"></div>
+
+    <!-- Swiper -->
+    <div class="swiper heroSwiper" style="z-index: 1;">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+                <video autoplay muted loop playsinline class="hero-video">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-on-a-computer-screen-41645-large.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+                <video autoplay muted loop playsinline class="hero-video">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-business-team-working-on-a-project-in-an-office-51543-large.mp4" type="video/mp4">
+                </video>
+            </div>
+            <!-- Slide 3 -->
+            <div class="swiper-slide">
+                <video autoplay muted loop playsinline class="hero-video">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-working-on-a-laptop-while-drinking-coffee-41712-large.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Overlay Content -->
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+        <div class="hero-text-col parallax-float" data-depth="-0.08">
+            <h1 class="hero-title">
+                {{ hero.title|default:"Rəqəmsal Dünyada" }}<br>
+                <span class="text-gradient">{{ hero.gradient_text|default:"İz Buraxın" }}</span>
+            </h1>
+            <p class="hero-subtitle">{{ hero.subtitle|default:"Biz vizyonunuzu reallığa çevirən innovativ veb və mobil həllər yaradırıq. Fərqlənməyə hazırsınız?" }}</p>
+            <div class="hero-buttons">
+                <a href="{{ hero.button1_link|default:'/contact/' }}" class="btn btn-primary">{{ hero.button1_text|default:'Layihənizi Başladaq' }} <i class="fas fa-arrow-right" style="margin-left: 10px;"></i></a>
+                <a href="{{ hero.button2_link|default:'/portfolio/' }}" class="btn btn-outline">{{ hero.button2_text|default:'Portfolioya Bax' }}</a>
+            </div>
+        </div>
+        <div class="hero-3d-col parallax-float" data-depth="0.14">
+            <div id="globe-container" style="width: 100%; max-width: 580px; aspect-ratio: 1/1;"></div>
+        </div>
+    </div>
+
+    <!-- Corner CTA -->
+    <div class="corner-cta" data-aos="fade-left" data-aos-delay="500">
+        <p>{% trans "Hələ də veb saytınız yoxdur? Dayanmayın!" %}</p>
+        <a href="{% url 'contact:index' %}" class="pulse-btn"><i class="fas fa-envelope"></i> {% trans "Əlaqə Saxla" %}</a>
+    </div>
+
+</section>
+
+<!-- 1.1.5 HERO ALTI - KİÇİK ŞƏKİL SLİDERİ -->
+<section class="sub-hero-slider-section">
+    <div class="swiper subHeroSwiper">
+        <div class="swiper-wrapper">
+            {% for item in showcase_items %}
+            <div class="swiper-slide">
+                <div class="sub-hero-card parallax-wrapper tilt-card">
+                    <div class="parallax-bg-layer" data-swiper-parallax="30%" style="background-image: url('{% if item.image %}{{ item.image.url }}{% elif forloop.counter == 1 %}https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80{% elif forloop.counter == 2 %}https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80{% else %}https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80{% endif %}');"></div>
+                    <div class="sub-hero-overlay"></div>
+                    <div class="sub-hero-content">
+                        <h3><span class="typed-title" data-strings='["{{ item.title }}"{% if item.subtitle %}, "{{ item.subtitle }}"{% endif %}]'></span></h3>
+                        <p><span class="typed-desc" data-strings='["{{ item.description }}"]'></span></p>
+                        <a href="{{ item.button_url|default:item.link|default:'/portfolio/' }}" class="btn btn-primary btn-sm mt-3 action-btn" style="opacity: 0; transition: opacity 0.5s;">{{ item.button_text|default:"Ətraflı Bax" }}</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Default slides if DB is empty -->
+            <div class="swiper-slide">
+                <div class="sub-hero-card parallax-wrapper tilt-card">
+                    <div class="parallax-bg-layer" data-swiper-parallax="30%" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                    <div class="sub-hero-overlay"></div>
+                    <div class="sub-hero-content">
+                        <h3><span class="typed-title" data-strings='["Veb Tətbiqlər", "Rəqəmsal Platformalar", "SaaS Həlləri"]'></span></h3>
+                        <p><span class="typed-desc" data-strings='["Mürəkkəb sistemlərin sadə həlli", "Biznesinizi onlayna daşıyın", "Avtomatlaşdırılmış idarəetmə"]'></span></p>
+                        <a href="{% url 'portfolio:index' %}" class="btn btn-primary btn-sm mt-3 action-btn" style="opacity: 0; transition: opacity 0.5s;">{% trans "Ətraflı Bax" %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="sub-hero-card parallax-wrapper tilt-card">
+                    <div class="parallax-bg-layer" data-swiper-parallax="30%" style="background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                    <div class="sub-hero-overlay"></div>
+                    <div class="sub-hero-content">
+                        <h3><span class="typed-title" data-strings='["Mobil Tətbiqlər", "iOS və Android", "Nativ Həllər"]'></span></h3>
+                        <p><span class="typed-desc" data-strings='["Hər yerdə müştərilərinizlə olun", "Sürətli və etibarlı", "İstifadəçi dostu interfeys"]'></span></p>
+                        <a href="{% url 'portfolio:index' %}" class="btn btn-primary btn-sm mt-3 action-btn" style="opacity: 0; transition: opacity 0.5s;">{% trans "Ətraflı Bax" %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="sub-hero-card parallax-wrapper tilt-card">
+                    <div class="parallax-bg-layer" data-swiper-parallax="30%" style="background-image: url('https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                    <div class="sub-hero-overlay"></div>
+                    <div class="sub-hero-content">
+                        <h3><span class="typed-title" data-strings='["Kreativ Brendinq", "Korporativ Kimlik", "Vizual Dizayn"]'></span></h3>
+                        <p><span class="typed-desc" data-strings='["Yadda qalan korporativ kimlik", "Fərqlənən vizual stil", "Dəyərlərinizi əks etdirin"]'></span></p>
+                        <a href="{% url 'portfolio:index' %}" class="btn btn-primary btn-sm mt-3 action-btn" style="opacity: 0; transition: opacity 0.5s;">{% trans "Ətraflı Bax" %}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Navigation -->
+        <div class="swiper-button-next sub-hero-next"></div>
+        <div class="swiper-button-prev sub-hero-prev"></div>
+        <!-- Pagination -->
+        <div class="swiper-pagination sub-hero-pagination"></div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="stats-section parallax-bg" id="statsSection"{% if site_settings.stats_section_bg_image %} style="background-image: url('{{ site_settings.stats_section_bg_image.url }}');"{% endif %}>
+    <div class="stats-container">
+        {% for stat in stats %}
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+            {% if '+' in stat.number %}
+            <h2 class="counter" data-target="{{ stat.number|cut:'+' }}">0</h2><span>+</span>
+            {% elif stat.number.isdigit %}
+            <h2 class="counter" data-target="{{ stat.number }}">0</h2>
+            {% else %}
+            <h2>{{ stat.number }}</h2>
+            {% endif %}
+            <p>{{ stat.label }}</p>
+        </div>
+        {% empty %}
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
+            <h2 class="counter" data-target="150">0</h2><span>+</span>
+            <p>{% trans "Layihə" %}</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="counter" data-target="50">0</h2><span>+</span>
+            <p>{% trans "Müştəri" %}</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+            <h2 class="counter" data-target="5">0</h2><span>+</span>
+            <p>{% trans "İl Təcrübə" %}</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+            <h2>24/7</h2>
+            <p>{% trans "Dəstək" %}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+    <div class="section-title text-center parallax-float" data-depth="0.08" data-aos="fade-up">
+        <h2>{% trans "Xidmətlərimiz" %}</h2>
+        <p>{% trans "Biznesinizin inkişafı üçün tam əhatəli rəqəmsal həllər." %}</p>
+    </div>
+    <div class="services-grid">
+        {% for service in services %}
+        <div class="service-card reveal-on-scroll" data-delay="{{ forloop.counter0|add:forloop.counter0|add:'00' }}">
+            <div class="service-icon"><i class="{{ service.icon_class }}"></i></div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+        </div>
+        {% empty %}
+        <!-- Default services if DB is empty -->
+        <div class="service-card reveal-on-scroll" data-delay="0">
+            <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+            <h3>{% trans "Veb Development" %}</h3>
+            <p>{% trans "Müasir, sürətli və istifadəçi dostu veb saytların yaradılması." %}</p>
+        </div>
+        <div class="service-card reveal-on-scroll" data-delay="100">
+            <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+            <h3>{% trans "Mobil Tətbiqlər" %}</h3>
+            <p>{% trans "iOS və Android üçün nativ və çarpaz platformalı tətbiqlər." %}</p>
+        </div>
+        <div class="service-card reveal-on-scroll" data-delay="200">
+            <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+            <h3>{% trans "UI/UX Dizayn" %}</h3>
+            <p>{% trans "Müştəriləri cəlb edən \"wow\" effektli, funksional dizaynlar." %}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="process-section parallax-bg" id="process"{% if site_settings.process_section_bg_image %} style="background-image: url('{{ site_settings.process_section_bg_image.url }}');"{% endif %}>
+    <div class="section-title text-center text-white" data-aos="fade-up">
+        <h2>{% trans "İş Prosesimiz" %}</h2>
+        <p>{% trans "İdeyanızdan real məhsula gedən mükəmməl yol." %}</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-line"></div>
+        {% for step in process_steps %}
+        <div class="timeline-step" data-aos="{% cycle 'fade-right' 'fade-left' %}">
+            <div class="step-dot">{{ step.step_number }}</div>
+            <div class="step-content">
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.description }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="timeline-step" data-aos="fade-right">
+            <div class="step-dot">1</div>
+            <div class="step-content">
+                <h3>{% trans "Kəşfiyyat" %}</h3>
+                <p>{% trans "Biznes ehtiyaclarınızı və hədəflərinizi öyrənirik." %}</p>
+            </div>
+        </div>
+        <div class="timeline-step" data-aos="fade-left">
+            <div class="step-dot">2</div>
+            <div class="step-content">
+                <h3>{% trans "Dizayn" %}</h3>
+                <p>{% trans "İstifadəçi təcrübəsini əsas alaraq interfeyslər yaradırıq." %}</p>
+            </div>
+        </div>
+        <div class="timeline-step" data-aos="fade-right">
+            <div class="step-dot">3</div>
+            <div class="step-content">
+                <h3>{% trans "Development" %}</h3>
+                <p>{% trans "Ən son texnologiyalarla kodlaşdırma prosesi aparılır." %}</p>
+            </div>
+        </div>
+        <div class="timeline-step" data-aos="fade-left">
+            <div class="step-dot">4</div>
+            <div class="step-content">
+                <h3>{% trans "Təhvil & Dəstək" %}</h3>
+                <p>{% trans "Məhsulu təhvil verib daimi texniki dəstək göstəririk." %}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Latest Posts & Final CTA -->
+<section class="latest-posts-section">
+    <div class="section-title text-center" data-aos="fade-up">
+        <h2>{% trans "Son Yazılarımız" %}</h2>
+        <p>{% trans "Blogumuzdan sənaye xəbərləri və faydalı məlumatlar." %}</p>
+    </div>
+    <div class="blog-grid">
+        {% for post in latest_posts %}
+        <a href="{% url 'blog:detail' post.slug %}" class="blog-card reveal-on-scroll" data-delay="{{ forloop.counter0 }}00">
+            {% if post.cover_image %}
+            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px 10px 0 0; display: block;">
+            {% else %}
+            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ post.title }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px 10px 0 0; display: block;">
+            {% endif %}
+            <div class="blog-card-body">
+                <h4>{{ post.title }}</h4>
+                <div class="read-more"><span>{% trans "Oxu" %}</span> <i class="fas fa-arrow-right read-more-icon"></i></div>
+            </div>
+        </a>
+        {% empty %}
+        <a href="{% url 'blog:index' %}" class="blog-card reveal-on-scroll" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Veb saytlarda animasiyanın rolu" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px 10px 0 0; display: block;">
+            <div class="blog-card-body">
+                <h4>{% trans "Veb saytlarda animasiyanın rolu" %}</h4>
+                <div class="read-more"><span>{% trans "Oxu" %}</span> <i class="fas fa-arrow-right read-more-icon"></i></div>
+            </div>
+        </a>
+        <a href="{% url 'blog:index' %}" class="blog-card reveal-on-scroll" data-delay="100">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="2026-cı ilin UI/UX trendləri" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px 10px 0 0; display: block;">
+            <div class="blog-card-body">
+                <h4>{% trans "2026-cı ilin UI/UX trendləri" %}</h4>
+                <div class="read-more"><span>{% trans "Oxu" %}</span> <i class="fas fa-arrow-right read-more-icon"></i></div>
+            </div>
+        </a>
+        <a href="{% url 'blog:index' %}" class="blog-card reveal-on-scroll" data-delay="200">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Django ilə təhlükəsizlik qaydaları" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px 10px 0 0; display: block;">
+            <div class="blog-card-body">
+                <h4>{% trans "Django ilə təhlükəsizlik qaydaları" %}</h4>
+                <div class="read-more"><span>{% trans "Oxu" %}</span> <i class="fas fa-arrow-right read-more-icon"></i></div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing-section parallax-bg" id="pricingSection">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <h2>{% trans "Bizim" %} <span class="text-gradient">{% trans "Qiymətlərimiz" %}</span></h2>
+            <p>{% trans "Ehtiyaclarınıza və büdcənizə uyğun ideal paketi seçin." %}</p>
+        </div>
+        
+        <div class="pricing-grid">
+            {% for plan in pricing_plans %}
+            <div>
+                <div class="pricing-card tilt-card {% if plan.is_popular %}standard popular{% else %}{% if forloop.first %}starter{% elif forloop.last %}premium{% else %}standard{% endif %}{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:forloop.counter0|add:'00' }}">
+                    {% if plan.is_popular %}
+                    <div class="popular-badge">{% trans "Ən Populyar" %}</div>
+                    {% endif %}
+                    <h3>{{ plan.name }}</h3>
+                    <div class="price">{{ plan.price }}</div>
+                    <p class="pricing-desc">{{ plan.description }}</p>
+                    <ul class="pricing-features">
+                        {% for feature in plan.get_features_list %}
+                        <li><i class="fas fa-check-circle"></i> {{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'contact:index' %}" class="btn btn-pricing btn-block mt-4"><span>{% trans "Sifariş Ver" %}</span> <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Başlanğıc (Tünd Yaşıl) -->
+            <div>
+                <div class="pricing-card starter tilt-card" data-aos="fade-up" data-aos-delay="0">
+                    <h3>{% trans "Başlanğıc" %}</h3>
+                    <div class="price">500 <span>{% trans "AZN-dən" %}</span></div>
+                    <p class="pricing-desc">{% trans "Kiçik bizneslər və startaplar üçün ideal seçim." %}</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> {% trans "Tək Səhifəli (Landing) Dizayn" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "Mobil Responsivlik" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "Basic SEO Optimizasiyası" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "1 Ay Ödənişsiz Dəstək" %}</li>
+                    </ul>
+                    <a href="{% url 'contact:index' %}" class="btn btn-pricing btn-block mt-4"><span>{% trans "Sifariş Ver" %}</span> <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Standart (Açıq Yaşıl) -->
+            <div>
+                <div class="pricing-card standard popular tilt-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="popular-badge">{% trans "Ən Populyar" %}</div>
+                    <h3>{% trans "Standart" %}</h3>
+                    <div class="price">1200 <span>{% trans "AZN-dən" %}</span></div>
+                    <p class="pricing-desc">{% trans "Korporativ şirkətlər üçün tam funksional həll." %}</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> {% trans "Çoxsəhifəli Korporativ Sayt" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "CMS İnteqrasiyası (Admin Panel)" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "Sürət və SEO Optimizasiyası" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "3 Ay Ödənişsiz Dəstək" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "Xüsusi Animasiyalar (Parallax)" %}</li>
+                    </ul>
+                    <a href="{% url 'contact:index' %}" class="btn btn-pricing btn-block mt-4"><span>{% trans "Sifariş Ver" %}</span> <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Premium (Qızılı Qradiyent) -->
+            <div>
+                <div class="pricing-card premium tilt-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>{% trans "Premium" %}</h3>
+                    <div class="price">3000 <span>{% trans "AZN-dən" %}</span></div>
+                    <p class="pricing-desc">{% trans "Genişmiqyaslı və xüsusi e-ticarət/platforma həlləri." %}</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> {% trans "E-ticarət və Kompleks Sistem" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "Xüsusi UI/UX Dizayn Araşdırması" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "Yüksək Təhlükəsizlik və Ödəniş İnteqrasiyası" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "6 Ay Ödənişsiz Dəstək" %}</li>
+                        <li><i class="fas fa-check-circle"></i> {% trans "Tam API Dəstəyi" %}</li>
+                    </ul>
+                    <a href="{% url 'contact:index' %}" class="btn btn-pricing btn-block mt-4"><span>{% trans "Sifariş Ver" %}</span> <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA Section -->
+<section id="finalCtaSection" class="final-cta"{% if site_settings.cta_section_bg_image %} style="--cta-bg: url('{{ site_settings.cta_section_bg_image.url }}');"{% elif cta.background_image %} style="--cta-bg: url('{{ cta.background_image.url }}');"{% endif %}>
+    <div class="cta-overlay"></div>
+    <div class="cta-content" data-aos="zoom-in">
+        <h2>{{ cta.title|default:"Layihənizi Bu Gün Başladaq" }}</h2>
+        <p>{{ cta.subtitle|default:"Peşəkar komandamızla birlikdə biznesinizi rəqəmsal zirvəyə qaldırın." }}</p>
+        <a href="{{ cta.button_url|default:'/contact/' }}" id="ctaBtn" class="btn btn-primary btn-cta">{{ cta.button_text|default:"Bizimlə Əlaqə" }} <i class="fas fa-paper-plane"></i></a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+<script>
+    // globe.gl Real World Wireframe Globe
+    const globeContainer = document.getElementById('globe-container');
+    
+    // CSS Variables handler
+    const rootStyles = getComputedStyle(document.documentElement);
+    const getThemeVar = (name, fallback) => {
+        const val = rootStyles.getPropertyValue(name).trim();
+        return val ? val.replace(/^"|"$/g, '') : fallback;
+    };
+
+    if (globeContainer) {
+        // Force square dimensions for perfect sphere
+        let width = globeContainer.getBoundingClientRect().width || globeContainer.clientWidth;
+        let height = width;
+        if (width === 0) width = parseInt(getComputedStyle(globeContainer).maxWidth) || 600;
+        if (height === 0) height = width;
+
+        let globeColor = getThemeVar('--globe-color', '#124a26');
+        let globeOutline = getThemeVar('--globe-outline', '#1c7541');
+
+        const myGlobe = Globe({ animateIn: true })(globeContainer)
+            .backgroundColor('rgba(0,0,0,0)') // Transparent background
+            .showAtmosphere(true)
+            .atmosphereColor(globeColor)
+            .atmosphereAltitude(0.2)
+            .width(width)
+            .height(height);
+
+        // Make the base globe a wireframe grid
+        const globeMaterial = myGlobe.globeMaterial();
+        if (globeMaterial && globeMaterial.color) {
+            globeMaterial.color.set(globeColor); 
+            globeMaterial.wireframe = true;
+            globeMaterial.transparent = true;
+            globeMaterial.opacity = 0.2;
+        }
+
+        // Fetch and draw real continent outlines
+        fetch('https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson')
+            .then(res => res.json())
+            .then(countries => {
+                myGlobe
+                    .polygonsData(countries.features)
+                    .polygonAltitude(0.01)
+                    .polygonCapColor(() => 'rgba(0, 0, 0, 0)') // Transparent body
+                    .polygonSideColor(() => 'rgba(0, 0, 0, 0)') // Transparent sides
+                    .polygonStrokeColor(() => getThemeVar('--globe-outline', '#EFF25A'));
+            });
+// Auto-rotation & control settings
+        myGlobe.controls().autoRotate = true;
+        myGlobe.controls().autoRotateSpeed = 1.0;
+        myGlobe.controls().enableZoom = false; // Prevent zooming
+        myGlobe.pointOfView({ altitude: 2.1 }); // Closer camera view for larger globe
+
+        // Handle resize with debounce to prevent WebGL context loss
+        let globeResizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(globeResizeTimer);
+            globeResizeTimer = setTimeout(() => {
+                if (globeContainer && myGlobe) {
+                    const newSize = Math.round(globeContainer.clientWidth);
+                    if (newSize > 0 && Math.abs(myGlobe.width() - newSize) > 4) {
+                        myGlobe.width(newSize);
+                        myGlobe.height(newSize);
+                    }
+                }
+            }, 120);
+        }, { passive: true });
+
+        // Gracefully handle WebGL context events
+        setTimeout(() => {
+            const canvas = globeContainer.querySelector('canvas');
+            if (canvas) {
+                canvas.addEventListener('webglcontextlost', (e) => {
+                    e.preventDefault();
+                }, false);
+            }
+        }, 600);
+
+// Listen for theme changes to update dynamic globe properties
+        window.addEventListener('themeChanged', () => {
+            const newGlobeColor = getThemeVar('--globe-color', '#124a26');
+            const newGlobeOutline = getThemeVar('--globe-outline', '#1c7541');
+            
+            if (globeMaterial && globeMaterial.color) {
+                globeMaterial.color.set(newGlobeColor);
+            }
+            myGlobe.atmosphereColor(newGlobeColor);
+            myGlobe.polygonStrokeColor(() => newGlobeOutline);
+        });
+    }
+</script>
+
+<script>
+    // Sub Hero Slider Initialize (Exact 3 Cards)
+    const subHeroEl = document.querySelector('.subHeroSwiper');
+    if (subHeroEl) {
+        const subHeroSwiper = new Swiper('.subHeroSwiper', {
+            slidesPerView: 3,
+            spaceBetween: 0,
+            loop: false,
+            watchOverflow: true,
+            parallax: true,
+            speed: 800,
+            effect: 'slide',
+            navigation: {
+                nextEl: '.sub-hero-next',
+                prevEl: '.sub-hero-prev',
+            },
+            pagination: {
+                el: '.sub-hero-pagination',
+                clickable: true,
+            },
+            preventClicks: false,
+            preventClicksPropagation: false,
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+    }
+// Typewriter for Sub Hero 
+    let typedInstancesStarted = false;
+    const typeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !typedInstancesStarted) {
+                typedInstancesStarted = true;
+                document.querySelectorAll('.sub-hero-content').forEach(content => {                                     
+                    const titleEl = content.querySelector('.typed-title');
+                    const rawStrings = titleEl ? titleEl.getAttribute('data-strings') : null;
+                    if (titleEl && rawStrings) {
+                        try {
+                            const strings = JSON.parse(rawStrings);
+                            const combinedString = strings.join(', '); // Birləşdiririk ki, tam yazılsın
+                            new Typed(titleEl, {
+                                strings: [combinedString],
+                                typeSpeed: 40,
+                                loop: false, // Animasiya bitəndə dayansın
+                                cursorChar: '|'
+                            });
+                        } catch(e) {}
+                    }
+
+                    const descEl = content.querySelector('.typed-desc');
+                    const rawDescStrings = descEl ? descEl.getAttribute('data-strings') : null;
+                    if (descEl && rawDescStrings) {
+                        setTimeout(() => {
+                            try {
+                                const descStrings = JSON.parse(rawDescStrings);
+                                const combinedDesc = descStrings.join(' - ');
+                                new Typed(descEl, {
+                                    strings: [combinedDesc],
+                                    typeSpeed: 25,
+                                    loop: false, // Animasiya bitəndə dayansın
+                                    showCursor: false
+                                });
+                            } catch(e) {}
+                            const actionBtn = content.querySelector('.action-btn');
+                            if (actionBtn) actionBtn.style.opacity = '1';
+                        }, 500); // Başlıqdan biraz sonra başlasın
+                    }
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    const subHeroSec = document.querySelector('.sub-hero-slider-section');
+    if(subHeroSec) typeObserver.observe(subHeroSec);
+
+    // Hero Swiper Init
+    const heroEl = document.querySelector('.heroSwiper');
+    if (heroEl) {
+        const heroSlides = heroEl.querySelectorAll('.swiper-slide');
+        const heroCanLoop = heroSlides.length >= 3;
+        var heroSwiper = new Swiper('.heroSwiper', {
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+            },
+            loop: heroCanLoop,
+            pagination: {
+                el: '.heroSwiper .swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+// Particles.js (Digital Stars/Network)
+    function initParticles() {
+        if(typeof particlesJS !== 'undefined') {
+            const pColor = getThemeVar('--particles-color', '#EFF25A');
+            const pLineColor = getThemeVar('--particles-line-color', '#33B36B');
+            const pOpacity = parseFloat(getThemeVar('--particles-opacity', '0.5'));
+            const pLineOpacity = parseFloat(getThemeVar('--particles-line-opacity', '0.4'));
+
+            // Destroy existing if re-initializing
+            if (window.pJSDom && window.pJSDom.length > 0) {
+                window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                window.pJSDom = [];
+            }
+
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": pColor },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": pOpacity, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
+                    "size": { "value": 3, "random": true },
+                    "line_linked": { "enable": true, "distance": 150, "color": pLineColor, "opacity": pLineOpacity, "width": 1 },
+                    "move": { "enable": true, "speed": 4, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                    "modes": { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 } }
+                },
+                "retina_detect": true
+            });
+        }
+    }
+    initParticles();
+    window.addEventListener('themeChanged', initParticles);
+// Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200; 
+
+    ScrollTrigger.create({
+        trigger: '#statsSection',
+        start: 'top 80%',
+        onEnter: () => {
+            counters.forEach(counter => {
+                const animate = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(animate, 10);
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+                animate();
+            });
+        },
+        once: true
+    });
+
+    // CTA Interactive Effect (Mouse Move)
+    document.addEventListener('DOMContentLoaded', () => {
+        const ctaSection = document.getElementById('finalCtaSection');
+        const ctaBtn = document.getElementById('ctaBtn');
+        const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
+        if (ctaSection && !isTouchDevice) {
+            let ticking = false;
+            ctaSection.addEventListener('mousemove', (e) => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const rect = ctaSection.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const percentX = (x / rect.width) * 2 - 1; // -1 to 1
+                        ctaSection.style.setProperty('--bg-rotate', `${percentX * 3}deg`);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            ctaSection.addEventListener('mouseleave', () => {
+                ctaSection.style.setProperty('--bg-rotate', `0deg`);
+            });
+        }
+
+        if (ctaBtn && !isTouchDevice) {
+            let ticking = false;
+            ctaBtn.addEventListener('mousemove', (e) => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const rect = ctaBtn.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const percentX = (x / rect.width) * 2 - 1;
+                        const percentY = (y / rect.height) * 2 - 1;
+                        // Rotate max 15deg based on cursor position
+                        ctaBtn.style.setProperty('--btn-rx', `${-percentY * 15}deg`);
+                        ctaBtn.style.setProperty('--btn-ry', `${percentX * 15}deg`);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            ctaBtn.addEventListener('mouseleave', () => {
+                ctaBtn.style.setProperty('--btn-rx', `0deg`);
+                ctaBtn.style.setProperty('--btn-ry', `0deg`);
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+
+

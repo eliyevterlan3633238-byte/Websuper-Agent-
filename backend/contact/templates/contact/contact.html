@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Əlaqə" %} - WebSuper Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}?v=2.1">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<!-- Toast Notification -->
+{% if messages %}
+<div class="toast-notification-container">
+    {% for message in messages %}
+    <div class="toast-notification toast-{{ message.tags }}">
+        <div class="toast-icon">
+            {% if message.tags == 'success' %}<i class="fas fa-check-circle"></i>{% else %}<i class="fas fa-exclamation-circle"></i>{% endif %}
+        </div>
+        <div class="toast-message">{{ message }}</div>
+        <button type="button" class="toast-close" onclick="this.parentElement.style.display='none';"><i class="fas fa-times"></i></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="page-header parallax-bg" id="contactHeader" style="background-image: url('{% if site_settings.contact_hero_image %}{{ site_settings.contact_hero_image.url }}{% else %}https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80{% endif %}');">
+    <div class="header-overlay"></div>
+    <div class="header-content" data-aos="fade-up">
+        <h1>{% trans "Bizimlə" %} <span class="text-gradient">{% trans "Əlaqə" %}</span></h1>
+        <div class="breadcrumb">
+            
+        </div>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <!-- 3 Info Cards -->
+    <div class="contact-top-cards">
+        <div class="parallax-float" data-depth="-0.08">
+            <div class="contact-info-card tilt-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>{% trans "Telefon" %}</h3>
+                <p>{{ site_settings.phone|default:'+994 50 000 00 00' }}</p>
+            </div>
+        </div>
+        <div class="parallax-float" data-depth="0.14">
+            <div class="contact-info-card tilt-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon"><i class="fas fa-envelope"></i></div>
+                <h3>{% trans "Email" %}</h3>
+                <p>{{ site_settings.email|default:'info@websuper.az' }}</p>
+            </div>
+        </div>
+        <div class="parallax-float" data-depth="-0.04">
+            <div class="contact-info-card tilt-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                <h3>{% trans "Ünvan" %}</h3>
+                <p>{{ site_settings.address }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-content-grid">
+        <div class="contact-form-wrapper" data-aos="fade-right">
+            <h2>{% trans "Mesaj Göndərin" %}</h2>
+            <p>{% trans "Hər hansı bir sualınız və ya layihəniz varsa, bizə yazın." %}</p>
+
+
+            <form method="post" action="{% url 'contact:index' %}" id="contactForm">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form.phone }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.subject }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.message }}
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">{% trans "Göndər" %} <i class="fas fa-paper-plane" style="margin-left: 10px;"></i></button>
+            </form>
+        </div>
+
+        <div class="contact-visual-wrapper tilt-card" data-aos="fade-left" id="contactMapCard">
+            <div class="map-card-glow"></div>
+
+            <!-- Floating Location Info Badge -->
+            <div class="map-floating-badge">
+                <div class="badge-status-dot">
+                    <span class="pulse-ring"></span>
+                    <span class="status-core"></span>
+                </div>
+                <div class="badge-content">
+                    <div class="badge-header">
+                        <span class="badge-tag">{% trans "Baş Ofis" %}</span>
+                        <span class="badge-coords"><i class="fas fa-satellite"></i> 40.4093° N, 49.8671° E</span>
+                    </div>
+                    <h4 class="badge-location-title">WebSuper Agency</h4>
+                    <p class="badge-address"><i class="fas fa-map-marker-alt"></i> {{ site_settings.address|default:'Bakı şəhəri, Azərbaycan' }}</p>
+                </div>
+            </div>
+
+            <!-- Floating Quick Action Button -->
+            <a href="https://maps.google.com/?q={{ site_settings.address|urlencode }}" target="_blank" rel="noopener noreferrer" class="map-action-btn" title="{% trans 'Google Xəritədə Aç' %}" style="pointer-events: auto; z-index: 100;">
+                <i class="fas fa-location-arrow"></i>
+                <span>{% trans "Xəritədə Aç" %}</span>
+            </a>
+
+            <!-- Map Container with Vignette Frame & Tilt Shield -->
+            <div class="map-container" id="mapContainer">
+                <!-- Tilt Shield prevents iframe from capturing cursor during 3D tilt -->
+                <div class="map-tilt-shield" id="mapTiltShield" title="{% trans 'Xəritəni idarə etmək üçün klikləyin' %}">
+                    <div class="map-shield-pill">
+                        <i class="fas fa-hand-pointer"></i>
+                        <span>{% trans "İdarə etmək üçün klikləyin" %}</span>
+                    </div>
+                </div>
+
+                <!-- Exit interactive mode button -->
+                <button type="button" class="map-exit-btn" id="mapExitBtn" title="{% trans '3D rejimə qayıt' %}">
+                    <i class="fas fa-cube"></i> {% trans "3D Rejim" %}
+                </button>
+
+                <div class="map-vignette-overlay"></div>
+                <iframe 
+                    id="contactMapIframe"
+                    title="WebSuper Location Map"
+                    src="{% if site_settings and site_settings.map_embed_url %}{{ site_settings.map_embed_url }}{% else %}https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194473.42999433604!2d49.71487679318182!3d40.394508493134114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d6bd6211cf9%3A0x343f6b5e7ae56c6b!2sBaku%2C%20Azerbaijan!5e0!3m2!1sen!2s!4v1690000000000!5m2!1sen!2s{% endif %}" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Map Interaction Mode & 3D Tilt Shield Toggle
+    const mapCard = document.getElementById('contactMapCard');
+    const mapShield = document.getElementById('mapTiltShield');
+    const mapExitBtn = document.getElementById('mapExitBtn');
+
+    if (mapShield && mapCard) {
+        mapShield.addEventListener('click', function(e) {
+            e.stopPropagation();
+            mapCard.classList.add('map-interactive-mode');
+            mapCard.style.transform = '';
+            mapCard.style.transition = 'transform 0.4s ease-out';
+        });
+
+        if (mapExitBtn) {
+            mapExitBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mapCard.classList.remove('map-interactive-mode');
+            });
+        }
+
+        mapCard.addEventListener('mouseleave', function() {
+            if (mapCard.classList.contains('map-interactive-mode')) {
+                mapCard.classList.remove('map-interactive-mode');
+            }
+        });
+    }
+
+    // Form JS Validation
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        let isValid = true;
+        const inputs = this.querySelectorAll('[required]');
+        
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                isValid = false;
+                input.style.borderColor = 'red';
+            } else {
+                input.style.borderColor = 'var(--border-color)';
+            }
+        });
+
+        if (!isValid) {
+            e.preventDefault();
+            alert("{% trans 'Zəhmət olmasa, bütün mütləq sahələri doldurun.' %}");
+        }
+    });
+</script>
+{% endblock %}
